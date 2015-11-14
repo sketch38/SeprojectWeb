@@ -1,0 +1,34 @@
+<!--start second menu-->
+<div class="container-fluid second-bar time-table">
+	<div class="col-sm-push-4 col-md-push-4 col-lg-push-4 col-sm-4 col-md-4 col-lg-4">
+	    <ul class="nav nav-pills text-center">
+	    	<li class="col-xs-3 col-sm-3 col-md-3 col-lg-3 link"><a href="#all">ALL</a></li>
+	    	<li class="col-xs-3 col-sm-3 col-md-3 col-lg-3 link"><a href="#room">ROOM</a></li>
+	    	<li class="col-xs-3 col-sm-3 col-md-3 col-lg-3 link"><a href="#course">COURSE</a></li>
+	    	<li class="col-xs-3 col-sm-3 col-md-3 col-lg-3 link"><a href="#event">EVENT</a></li>
+	    </ul>
+    </div>
+</div>
+<!--end second menu-->
+<div class="hidden-xs" style="width:100%;">
+	<table class="head-table col-sm-12 col-md-12 col-lg-12">
+		<tr>
+			<td class="col-sm-1 col-md-1 text-center"></td>
+			<td class="col-sm-9 col-md-9 col-lg-9 text-center" style="background-color:#272727;">TIMESTAMP</td>
+			<td class="col-sm-2 col-md-2 col-lg-2 text-center" style="background-color:#696969;">ROOM</td>
+		</tr>
+	</table>
+</div>
+<div style="width:100%;">
+	<table class="table" ng-repeat="table in tables">
+		<tr>
+			<td class="col-sm-1 col-md-1 col-lg-1 hidden-xs text-center">08:00</td>	
+			<td class="col-xs-10 col-sm-9 col-md-9 col-lg-9 title-table admission">
+				<p>{{table.title}}</p>
+				<label class="title-time">{{table.start_time}} -09.00</label>
+			</td>
+			<p>{{table}}</p>
+			<td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center table-bordered" style="vertical-align: middle;"><h5>521</h5></td>
+		</tr>
+	</table>
+</div>

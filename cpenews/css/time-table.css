@@ -1,0 +1,53 @@
+.head-table{
+	height: 2.5em;
+	color: #fff;
+	font-size: 12px;
+}
+.head-table tr td{
+	padding-top: 0.8em;
+}
+.title-table{
+	border: 1px solid #ddd;
+	border-left-width: 10px;
+	border-radius: 2px;
+}
+.title-time{
+	color: #BDBDBD;
+}
+.table{
+  border-collapse: separate; /* Or do nothing, this is default */
+  border-spacing: 0 3px; /* Only works if border-collapse is separate */
+}
+.title-table p,.title-table span{
+	padding-left: 10px;
+	font-family:sans-serif;
+}
+.title-table span{
+	color: #424242;
+}
+
+
+@media (max-width: 767px){
+	.title-table p{
+		font-size:10px;
+		font-weight: bolder;
+	}
+	.title-table label{
+		margin-left: 10px;
+	}
+	.table{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}
+@media (min-width: 768px){
+	.title-table p{
+		font-size:13px;
+		font-weight: bolder;
+	}
+	.title-time{
+		float: right;
+		margin-right: 15px;
+		font-size: 11px;
+	}
+}

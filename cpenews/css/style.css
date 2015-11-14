@@ -1,0 +1,126 @@
+/*-------------------------------------menu----------------------------------------------------*/
+@font-face {
+  			font-family: 'RobotoRegular';
+  			src: url('../fonts/RobotoCondensed-Regular.ttf');
+}
+@font-face {
+  			font-family: 'RobotoBold';
+  			src: url('../fonts/RobotoCondensed-Bold.ttf');
+}
+
+.logo-menu{
+	display: inline-table;
+	float: left;
+	margin-top: 0.7em;
+	position:absolute;
+}
+.logo-menu img{
+	height: 4em;
+}
+.border-menu{
+	height: 2em;
+	margin-top: 0.8em;
+	border-right:1px solid #767676;
+	float: left;
+}
+#navbar,.second-bar{
+	font-family: 'RobotoRegular',sans-serif;
+}
+#navbar ul li a div img{
+	height: 1.6em;
+	margin-top: 0.4em;
+}
+
+@media (max-width: 767px){
+	.main-menu li a{
+		font-size: 13px;
+		text-align: left;
+		margin-left: 15px;
+		padding-left: 15px;
+		color: #777
+	}
+	.second-bar{
+		font-size: 12px;
+	}
+}
+@media (min-width: 768px){
+	#navbar ul li a{
+		font-size: 11px;
+		text-align: center;
+	}
+	.second-bar{
+		font-size: 14px;
+	}
+}
+/*-----------------------------------------------end menu-----------------------------------------------*/
+/*----------------------------------------------second menu---------------------------------------------*/
+.time-table{
+	background-color:#6ab344;
+}
+.news{
+	background-color:#5fbeee;
+}
+.second-bar{
+	height: 40px;
+}
+/*.second-bar ul li a{
+	height: 35px;
+	padding-top: 15px;
+	color: #ffffff;
+}*/
+/*.second-bar ul li a:hover{
+	color: #ffffff;
+	font-weight: bolder;
+	border-bottom: 2px solid #ffffff;
+}*/
+.link{
+	height: 35px;
+	padding-top: 15px;
+	cursor: pointer;
+}
+.link a{
+	color: #ffffff;
+}
+.link:hover{
+	color: #ffffff;
+	font-weight: bolder;
+	border-bottom: 2px solid #ffffff;
+}
+
+/*--------------------------------------------end second menu-------------------------------------------*/
+/*-------------------------------------------category color------------------------------------------*/
+.course{
+	color: #4683ea;
+	border-left-color: #4683ea;
+}
+.admission{
+	color:#f0c20e;
+	border-left-color: #f0c20e;
+}
+.training-course{
+	color: #3dbb55;
+	border-left-color: #3dbb55;
+}
+.competition{
+	color: #db3239;
+	border-left-color: #db3239;
+}
+
+/*------------------------------------------room page------------------------------------------------*/
+.test{
+	border: 1px solid #ddd;
+}
+.head-table{
+	font-family: 'RobotoRegular',sans-serif;
+	font-size: 14px;
+}
+.head-table td{
+	height: 30px;
+}
+.head-text{
+	background-color:#5fbeee;
+	color: #ffffff;
+}
+.hour{
+	height: 60px;
+}

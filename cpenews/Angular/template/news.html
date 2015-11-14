@@ -1,0 +1,20 @@
+<categoryselect active-category="activeCategory"></categoryselect>
+<div class="container-fluid">
+	<a class="" ng-repeat="news in indexcontroller.news | filter:{ca_name:activeCategory}" ng-href="#/news/{{news.eid}}">
+		{{scope}}
+		<div class="col-md-4 col-sm-6" title='{{ news.title }}'>
+			<div class="col-md-10 col-sm-10 col-xs-12 block col-sm-offset-1 col-md-offset-1">
+				<div ng-show="{{news.haspic}}">
+					<img ng-src="{{news.pic}}"/>
+				</div>
+				<p class="fontTitle">{{ news.title }}</p>
+				<div ng-hide="{{news.haspic}}">
+					<p class="fontDetail">{{news.detail | limitTo: 200}} {{news.detail > 200 ? '' : '...'}}</p>
+				</div>
+				<p>category: {{ news.ca_name }}</p>
+				<p>eid: {{ news.eid }}</p>
+				<p class="fontDate">{{ news.date }}</p>
+			</div>
+		</div>
+	</a>
+</div>
