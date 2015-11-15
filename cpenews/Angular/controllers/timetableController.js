@@ -1,10 +1,24 @@
+function timeObjToInt(time) {
+	var dateObj = new Date();
+	var timeSplit = time.split(':');
+	dateObj.setHours(timeSplit[0],timeSplit[1]);
+	return dateObj.getTime();
+}
+
 angular.module('app')
-	.controller('timetableController',function($http,$scope){	
+	.controller('timetableController',function($http,$scope,$interval){
 		//put code
-		$http({method:'GET',url:'/time-table'}).success(function(data){
-			$scope.tables = data;
-			//console.log(data[0]);
-		});
+		var getData = function () {
+			$http({method:'GET',url:'/time-table'}).success(function(data){
+				data.sort(function (a, b) {
+					return timeObjToInt(a.end_time) - timeObjToInt(b.end_time);
+				});
+				$scope.tables = data;
+			});
+		};
+		getData();
+		$interval(getData, 5000);
+
 		this.showtables = function(){
 
 		};

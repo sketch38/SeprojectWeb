@@ -13,7 +13,7 @@ var pool = mysql.createPool({
     //connectionLimit : 100, //important
     host     : 'localhost',
     user     : 'root',
-    password : '',
+    password : 'root',
     database : 'seproject'
 });
 
@@ -49,11 +49,29 @@ app.get('/category',function(request,response){
     });
 });
 app.get('/time-table',function(request,response){
+  var today = new Date();
+  var currentDate = today.getTime();
+  var formDate = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
+  // var currentTime = today.getHours() + ':' + today.getMinutes();
+  var currentTime = '08:00'; // this is mockup
   pool.getConnection(function(errorCon,conn) {
-    conn.query("SELECT C.cid,C.cnum,C.title,C.teacher,C.type,Ca.ca_name,Ca.color, TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.room,Cd.day FROM time T,course C,category Ca,courseday Cd WHERE C.cid = T.cid and Ca.ca_id = C.ca_id and Cd.cid = C.cid", function(errorQ, courseList) {
-      conn.query("SELECT E.eid,E.title,Ca.ca_name,Ca.color,TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.room FROM time T,event E,category Ca WHERE E.eid = T.eid and Ca.ca_id = E.ca_id", function(errorQ2, eventList) {
-        response.json(courseList.concat(eventList));
-        conn.release();
+    conn.query("SELECT * FROM termtime", function(errorQ, termList) {
+      conn.query("SELECT E.eid,E.title,Ca.ca_name,Ca.color,TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.room,DATE_FORMAT(T.start_date,'%d-%m-%Y') start_date,DATE_FORMAT(T.end_date,'%d-%m-%Y') end_date FROM time T,event E,category Ca WHERE E.eid = T.eid and Ca.ca_id = E.ca_id and T.start_date ='"+ formDate +"' and T.end_time > '" + currentTime + "'" , function(errorQ2, eventList) {
+        for(term of termList) {
+          term.startdate = new Date(term.startdate).getTime();
+          term.enddate = new Date(term.enddate).getTime();
+        }
+        if((currentDate>termList[2].startdate && currentDate<termList[2].enddate)||(currentDate>termList[1].startdate && currentDate<termList[1].enddate)||(currentDate>termList[0].startdate && currentDate<termList[0].enddate)){
+          var day = ['sun','mon','tue','wed','thu','fri','sat'];
+          conn.query("SELECT C.cid,C.cnum,C.title,C.teacher,C.type,Ca.ca_name,Ca.color, TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.room,Cd.day,T.start_date,T.end_date FROM time T,course C,category Ca,courseday Cd WHERE C.cid = T.cid and Ca.ca_id = C.ca_id and Cd.cid = C.cid AND Cd.day = '" + day[new Date().getDay()+1] +"' and T.end_time > '" + currentTime + "'" , function(errorQ, courseList) {
+            response.json(eventList.concat(courseList));
+            conn.release();
+          });
+        }
+        else{
+          response.json(eventList);
+          conn.release();
+        }
       });
     });
   });
