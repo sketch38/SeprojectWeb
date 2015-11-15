@@ -3,6 +3,9 @@ angular.module('app')
 		//put code
 		$http({method:'GET',url:'/time-table'}).success(function(data){
 			$scope.tables = data;
-			console.log(data[0]);
+			//console.log(data[0]);
 		});
+		this.showtables = function(){
+
+		};
 });

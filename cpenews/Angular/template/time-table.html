@@ -23,12 +23,12 @@
 	<table class="table" ng-repeat="table in tables">
 		<tr>
 			<td class="col-sm-1 col-md-1 col-lg-1 hidden-xs text-center">08:00</td>	
-			<td class="col-xs-10 col-sm-9 col-md-9 col-lg-9 title-table admission">
-				<p>{{table.title}}</p>
-				<label class="title-time">{{table.start_time}} -09.00</label>
+			<td class="col-xs-10 col-sm-9 col-md-9 col-lg-9 title-table admission" style="border-left-color:;">
+				<p>{{table.cnum}} {{table.title}}</p>
+				<span>{{table.teacher}}--{{table.type}}</span>
+				<label class="title-time">{{table.start_time}}-{{table.end_time}}</label>
 			</td>
-			<p>{{table}}</p>
-			<td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center table-bordered" style="vertical-align: middle;"><h5>521</h5></td>
+			<td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center table-bordered" style="vertical-align: middle;"><h5>{{table.room}}</h5></td>
 		</tr>
 	</table>
 </div>

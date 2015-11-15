@@ -1,11 +1,13 @@
 <categoryselect active-category="activeCategory"></categoryselect>
 <div ng-controller="shownewsController as news" class="col-md-10 col-md-offset-1 border show">
-		<img ng-src="{{news.results.pic}}"/>
+		<img ng-src="{{news.newstitle.pic}}"/>
 		<div class="showfont">
 			<h1>{{news.newstitle.title}}</h1>
 			<div class="showDetail"><p>{{news.newstitle.detail}}</p></div>
-			<p>DATE: {{news.newstitle.date}}</p>
-			<p>EID: {{news.newstitle.eid}}</p>
-			<p>CATEGORY: {{news.newstitle.category}}</p>
+			<p>START-DATE:{{news.newstitle.start_date}}</p>
+			<p>END-DATE:{{news.newstitle.end_date}}</p>
+			<p>START-TIME:{{news.newstitle.start_time}}</p>
+			<p>END-TIME:{{news.newstitle.end_time}}</p>
+			<p>CATEGORY: {{news.newstitle.ca_name | uppercase}}</p>
 		</div>
 </div>
