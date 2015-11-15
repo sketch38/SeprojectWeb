@@ -43,7 +43,7 @@ app.get('/time-table',function(request,response){
         }
         if((currentDate>=termList[2].startdate && currentDate<=termList[2].enddate)||(currentDate>=termList[1].startdate && currentDate<=termList[1].enddate)||(currentDate>=termList[0].startdate && currentDate<=termList[0].enddate)){
           var day = ['sun','mon','tue','wed','thu','fri','sat'];
-          conn.query("SELECT C.cid,C.cnum,C.title,C.teacher,C.type,Ca.ca_name,Ca.color, TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.room,Cd.day,T.start_date,T.end_date FROM time T,course C,category Ca,courseday Cd WHERE C.cid = T.cid and Ca.ca_id = C.ca_id and Cd.cid = C.cid AND Cd.day = '" + day[new Date().getDay()+1] +"' and T.end_time > '" + currentTime + "'" , function(errorQ, courseList) {
+          conn.query("SELECT C.cid,C.cnum,C.title,C.teacher,C.type,Ca.ca_name,Ca.color, TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.room,Cd.day,T.start_date,T.end_date FROM time T,course C,category Ca,courseday Cd WHERE C.cid = T.cid and Ca.ca_id = C.ca_id and Cd.cid = C.cid AND Cd.day = '" + day[new Date().getDay()] +"' and T.end_time > '" + currentTime + "'" , function(errorQ, courseList) {
             response.json(eventList.concat(courseList));
             conn.release();
           });
