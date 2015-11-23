@@ -1,5 +1,7 @@
 angular.module('app')
-	.controller('settingController',function($http,$scope,$timeout){	
+	.controller('settingController',function($http,$scope,$timeout,$rootScope){
+		$rootScope.menu = 'setting';
+		$rootScope.page = $routeParams.page;
 		changeDate = function(date) { // dd/mm/yyyy
 	      	var newDate = date.split('/');
 	      	return newDate[2] + '-' + newDate[1] + '-' + newDate[0];
@@ -10,7 +12,7 @@ angular.module('app')
 				$('.collapsible').collapsible({
 	  				accordion : false
 	    		});
-			});	
+			});
 		};
 		getCategory();
 		$scope.addcategorybutton = function() {
@@ -44,7 +46,7 @@ angular.module('app')
 			  			finalend:"'"+data[1].enddate+"'",
 			  		}
 			  	}
-			});	
+			});
 		};
 		getDateSetting();
 		$scope.adddate = function(id) {

@@ -5,11 +5,11 @@ app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProv
 			templateUrl:'angular/template/home.html',
 			controller: 'homeController'
 		})
-		.when('/time-table',{
+		.when('/time-table/:page',{
 			templateUrl:'angular/template/time-table.html',
 			controller: 'timetableController'
 		})
-		.when('/news',{
+		.when('/news/:page',{
 			templateUrl:'angular/template/news.html',
 			controller: 'newsController',
 			controllerAs: 'indexcontroller'
@@ -18,7 +18,7 @@ app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProv
 			templateUrl:'angular/template/admin.html',
 			controller: 'adminController'
 		})
-		.when('/setting',{
+		.when('/setting/:page',{
 			templateUrl:'angular/template/setting.html',
 			controller: 'settingController'
 		})

@@ -24,11 +24,24 @@
 		<div ng-controller="MenuController as menu">
 			<menu isadmin="menu.isAdmin"></menu>
 		</div>
-    	<!--end menu-->
+  	<!--end menu-->
+		<!--start second menu-->
+		<div class="row" ng-controller="SubMenuController">
+		  <div class="col s12 m12 l12 z-depth-1" ng-class="menuCSS">
+			  	<div class="col s12 m6 l6 push-m3 push-l3">
+						<ul class="tabs second-menu">
+							<li class="tab col s3 m3 l3" ng-repeat="menu in menuLists"><a ng-href="{{ menu.link }}">{{ menu.name }}</a></li>
+						</ul>
+					</div>
+		  	</div>
+			</div>
+		<!--end second menu-->
+
 		<div ng-view></div>
 
     	<script src="angular/app.js"></script>
     	<script src="angular/directive/menu.js"></script>
+			<script src="angular/controllers/subMenuController.js"></script>
     	<script src="angular/controllers/newsController.js"></script>
     	<script src="angular/controllers/timetableController.js"></script>
     	<script src="angular/directive/category-select.js"></script>
