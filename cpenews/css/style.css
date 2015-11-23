@@ -7,7 +7,9 @@
   			font-family: 'RobotoBold';
   			src: url('../fonts/RobotoCondensed-Bold.ttf');
 }
-
+body{
+	background-color: #f5f5f5;
+}
 .logo-menu{
 	display: inline-table;
 	float: left;
@@ -42,6 +44,9 @@
 	.second-bar{
 		font-size: 12px;
 	}
+	.add-ui > li{
+		padding:18px 5px 0 5px;
+	}
 }
 @media (min-width: 768px){
 	#navbar ul li a{
@@ -50,6 +55,9 @@
 	}
 	.second-bar{
 		font-size: 14px;
+	}
+	.add-ui > li{
+		padding:15px 10px 0 10px;
 	}
 }
 /*-----------------------------------------------end menu-----------------------------------------------*/
@@ -60,52 +68,33 @@
 .news{
 	background-color:#5fbeee;
 }
+.add{
+	background-color:#fff;
+	border-bottom: 1px solid #E0E0E0;
+}
 .second-bar{
 	height: 40px;
 }
-/*.second-bar ul li a{
-	height: 35px;
-	padding-top: 15px;
-	color: #ffffff;
-}*/
-/*.second-bar ul li a:hover{
-	color: #ffffff;
-	font-weight: bolder;
-	border-bottom: 2px solid #ffffff;
-}*/
-.link{
-	height: 35px;
-	padding-top: 15px;
+.add-ui >li > a{
+	color: #777;
 	cursor: pointer;
 }
-.link a{
-	color: #ffffff;
+.add-ui > li{
+	float: none;
+	display: inline-block;
+	color: #777;
 }
-.link:hover{
-	color: #ffffff;
-	font-weight: bolder;
-	border-bottom: 2px solid #ffffff;
+.add-ui >li > a:hover{
+	color: #6ab344;
+	cursor: pointer;
 }
-
+.add-ui > li:hover{
+	border-bottom:4px solid #6ab344;
+}
+.add-ui > li:active{
+	border-bottom:4px solid #777;
+}
 /*--------------------------------------------end second menu-------------------------------------------*/
-/*-------------------------------------------category color------------------------------------------*/
-.course{
-	color: #4683ea;
-	border-left-color: #4683ea;
-}
-.admission{
-	color:#f0c20e;
-	border-left-color: #f0c20e;
-}
-.training-course{
-	color: #3dbb55;
-	border-left-color: #3dbb55;
-}
-.competition{
-	color: #db3239;
-	border-left-color: #db3239;
-}
-
 /*------------------------------------------room page------------------------------------------------*/
 .test{
 	border: 1px solid #ddd;

@@ -1,0 +1,124 @@
+body{
+    background-color: #E0E0E0;
+}
+.main-menu{
+	background-color: #fff;
+}
+.main-menu ul li a{
+	color: #777;
+}
+.main-menu ul li form{
+	color: #777;
+	height: 56px;
+}
+.searchber{
+	color: #E0E0E0;
+}
+.searchber-mobile{
+	color: #E0E0E0;
+	width:100%; 
+	margin-left:40px;
+}
+
+.logo-menu{
+	display: inline-table;
+	float: left;
+	margin-top: 5px;
+	position:absolute;
+	margin-left: 2%;
+}
+.logo-menu img{
+	height: 48px;
+}
+.border{
+	border:1px solid #777;
+}
+.bordertop{
+	border-top: 1px solid #E0E0E0;
+}
+.borderbottom{
+    border-bottom: 1px solid #E0E0E0;
+}
+/*=================================================second menu=========================================================*/
+.time-table{
+    background-color:#6ab344;
+}
+.news{
+    background-color:#5fbeee;
+}
+.add{
+    background-color:#9e9e9e;
+}
+.tabs a:hover{
+    border-bottom:3px solid #fff;
+}
+.tabs a{
+    color: #fff;
+}
+/*=================================================add form=============================================================*/
+.add-box{
+    background-color: #fff;
+    padding-top-top: 1%;
+}
+.type-add{
+    padding-left: 5%;
+    padding-top: 2%;
+    color: #9e9e9e;
+}
+.form-add{
+    padding: 1% 5% 1% 5%; 
+}
+/*=================================================setting page==========================================================*/
+.setting-fill{
+    padding-left: 3%;
+    padding-right: 3%;
+}
+.setting-button{
+    margin-top: 3%;
+    margin-bottom: auto;
+}
+/*================================================contact page==========================================================*/
+/*=================================================time table===========================================================*/
+.table-container{
+    margin: 0 auto;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+.table-head td{
+    height: 30px;
+}
+.table-head-room{
+    border-bottom: 5px solid #5fbeee;
+    color: #5fbeee; 
+}
+.table{
+  border-collapse: separate; /* Or do nothing, this is default */
+  border-spacing: 0 3px; /* Only works if border-collapse is separate */
+}
+.table-title-box{
+    border: 1px solid #ddd;
+    border-left-width: 10px;
+    border-radius: 2px;
+}
+.table-room-box{
+    border: 1px solid #ddd;
+    color: #777;
+}
+.table-title-title{
+    font-size: 16px;
+    padding-bottom: 3px;
+    padding-top: 5px;
+}
+.table-title-time{
+    font-size: 16px;
+    color: #BDBDBD;
+}
+.table-title-teacher{
+    font-size: 14px;
+}
+/*================================================news page==========================================================*/
+.news-container{
+    margin: 0 auto;
+    padding-left: 2%;
+    padding-right: 2%;
+}

@@ -1,58 +1,38 @@
 var express = require('express');
 var mysql = require('mysql');
-// var bodyParser = require("body-parser");
-// var jwt = require("jsonwebtoken");
-// var base64url = require('base64url');
-// var secret = "sketchji";
+var bodyParser = require("body-parser");
+var jwt = require("jsonwebtoken");
+var base64url = require('base64url');
+var secret = "sketchji";
 var app = express();
 app.use(express.static('cpenews'));
-
-// login.js extended
 
 var pool = mysql.createPool({
     //connectionLimit : 100, //important
     host     : 'localhost',
     user     : 'root',
-    password : 'root',
+    password : '',
     database : 'seproject'
 });
+// login.js extended
+require('./login.js')(app,pool);
 
-// function handle_database(request,response){
-// 	var path = request.route.path;
-// 	pool.getConnection(function(error,conn){
-// 		var queryString ={};
-// 		if(path == '/news'){
-// 			queryString = "SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name FROM event E,category Ca,time T WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id ORDER BY T.time_post DESC";
-// 		}
-// 		else if(path == '/news/:eid'){
-// 			 var id = request.params.eid;
-// 			 queryString = "SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name,TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.start_date,T.end_date FROM event E,category Ca,time T WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id AND E.eid ="+id;
-//       }
-// 		conn.query(queryString,function(error,results){
-// 			if(error){
-// 				throw error;
-// 			}
-// 			else{
-// 				//console.log(results);
-// 				response.json(results);
-// 			}
-// 		});
-// 		conn.release();
-// 	});
-// }
+
+
 app.get('/category',function(request,response){
     pool.getConnection(function(errorCon,conn) {
-      conn.query('SELECT ca_name FROM `category`', function(errorQ, results) {
+      conn.query('SELECT * FROM `category`', function(errorQ, results) {
         response.json(results);
         conn.release();
       });
     });
 });
+
 app.get('/time-table',function(request,response){
   var today = new Date();
   var currentDate = today.getTime();
   var formDate = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
-  // var currentTime = today.getHours() + ':' + today.getMinutes();
+  //var currentTime = today.getHours() + ':' + today.getMinutes();
   var currentTime = '08:00'; // this is mockup
   pool.getConnection(function(errorCon,conn) {
     conn.query("SELECT * FROM termtime", function(errorQ, termList) {
@@ -61,7 +41,7 @@ app.get('/time-table',function(request,response){
           term.startdate = new Date(term.startdate).getTime();
           term.enddate = new Date(term.enddate).getTime();
         }
-        if((currentDate>termList[2].startdate && currentDate<termList[2].enddate)||(currentDate>termList[1].startdate && currentDate<termList[1].enddate)||(currentDate>termList[0].startdate && currentDate<termList[0].enddate)){
+        if((currentDate>=termList[2].startdate && currentDate<=termList[2].enddate)||(currentDate>=termList[1].startdate && currentDate<=termList[1].enddate)||(currentDate>=termList[0].startdate && currentDate<=termList[0].enddate)){
           var day = ['sun','mon','tue','wed','thu','fri','sat'];
           conn.query("SELECT C.cid,C.cnum,C.title,C.teacher,C.type,Ca.ca_name,Ca.color, TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.room,Cd.day,T.start_date,T.end_date FROM time T,course C,category Ca,courseday Cd WHERE C.cid = T.cid and Ca.ca_id = C.ca_id and Cd.cid = C.cid AND Cd.day = '" + day[new Date().getDay()+1] +"' and T.end_time > '" + currentTime + "'" , function(errorQ, courseList) {
             response.json(eventList.concat(courseList));
@@ -76,6 +56,7 @@ app.get('/time-table',function(request,response){
     });
   });
 });
+
 app.get('/news',function(request,response){
 	pool.getConnection(function(errorCon,conn) {
     conn.query("SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name FROM event E,category Ca,time T WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id ORDER BY T.time_post DESC", function(errorQ, results) {
@@ -84,6 +65,7 @@ app.get('/news',function(request,response){
     });
   });
 });
+
 app.get('/news/:eid',function(request,response){
 	var id = request.params.eid;
   pool.getConnection(function(errorCon,conn) {
@@ -93,6 +75,7 @@ app.get('/news/:eid',function(request,response){
     });
   });
 });
+
 app.listen(3000,function(){
 	console.log('listening on 3000 \n')
 });

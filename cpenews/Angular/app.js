@@ -2,24 +2,31 @@ var app = angular.module('app',['ngStorage','ngRoute']);
 app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProvider){
 	$routeProvider
 		.when('/',{
-			templateUrl:'Angular/template/time-table.html',
-			controller: 'timetableController'
+			templateUrl:'angular/template/home.html',
+			controller: 'homeController'
 		})
 		.when('/time-table',{
-			templateUrl:'Angular/template/time-table.html',
+			templateUrl:'angular/template/time-table.html',
 			controller: 'timetableController'
 		})
 		.when('/news',{
-			templateUrl:'Angular/template/news.html',
+			templateUrl:'angular/template/news.html',
 			controller: 'newsController',
 			controllerAs: 'indexcontroller'
 		})
 		.when('/admin',{
-			templateUrl:'Angular/template/admin.html',
+			templateUrl:'angular/template/admin.html',
 			controller: 'adminController'
 		})
+		.when('/setting',{
+			templateUrl:'angular/template/setting.html',
+			controller: 'settingController'
+		})
 		.when('/news/:eid',{
-			templateUrl:'Angular/template/news/show.html'
+			templateUrl:'angular/template/news/show.html'
+		})
+		.when('/contact',{
+			templateUrl:'angular/template/news/contact.html'
 		})
 		.otherwise({
 			redirectTo:'/'

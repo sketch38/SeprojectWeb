@@ -7,7 +7,6 @@ function timeObjToInt(time) {
 
 angular.module('app')
 	.controller('timetableController',function($http,$scope,$interval){
-		//put code
 		var getData = function () {
 			$http({method:'GET',url:'/time-table'}).success(function(data){
 				data.sort(function (a, b) {
@@ -18,8 +17,4 @@ angular.module('app')
 		};
 		getData();
 		$interval(getData, 5000);
-
-		this.showtables = function(){
-
-		};
 });

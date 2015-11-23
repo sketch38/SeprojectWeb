@@ -1,34 +1,37 @@
 <!--start second menu-->
-<div class="container-fluid second-bar time-table">
-	<div class="col-sm-push-4 col-md-push-4 col-lg-push-4 col-sm-4 col-md-4 col-lg-4">
-	    <ul class="nav nav-pills text-center">
-	    	<li class="col-xs-3 col-sm-3 col-md-3 col-lg-3 link"><a href="#all">ALL</a></li>
-	    	<li class="col-xs-3 col-sm-3 col-md-3 col-lg-3 link"><a href="#room">ROOM</a></li>
-	    	<li class="col-xs-3 col-sm-3 col-md-3 col-lg-3 link"><a href="#course">COURSE</a></li>
-	    	<li class="col-xs-3 col-sm-3 col-md-3 col-lg-3 link"><a href="#event">EVENT</a></li>
-	    </ul>
-    </div>
-</div>
+<div class="row">
+	    <div class="col s12 m12 l12 z-depth-1 time-table">
+	    	<div class="col s12 m6 l6 push-m3 push-l3">
+				<ul class="tabs second-menu">
+					<li class="tab col s3 m3 l3"><a href="#/time-table">ALL</a></li>
+					<li class="tab col s3 m3 l3"><a href="#/time-table">COURSE</a></li>
+					<li class="tab col s3 m3 l3"><a href="#/time-table">EVENT</a></li>
+					<li class="tab col s3 m3 l3"><a class="active" href="#/time-table">ROOM</a></li>
+				</ul>
+			</div>
+	    </div>
+	</div>
 <!--end second menu-->
-<div class="hidden-xs" style="width:100%;">
-	<table class="head-table col-sm-12 col-md-12 col-lg-12">
+<div class="table-container"style="background-color:#fff;">
+<div class="hide-on-small-only row">
+	<table class="col s12 m12 l12 centered table-head">
 		<tr>
-			<td class="col-sm-1 col-md-1 text-center"></td>
-			<td class="col-sm-9 col-md-9 col-lg-9 text-center" style="background-color:#272727;">TIMESTAMP</td>
-			<td class="col-sm-2 col-md-2 col-lg-2 text-center" style="background-color:#696969;">ROOM</td>
+			<td class="col s10 m10 l10"></td>
+			<td class="col s2 m2 l2 table-head-room">ROOM</td>
 		</tr>
 	</table>
 </div>
-<div style="width:100%;">
-	<table class="table" ng-repeat="table in tables">
-		<tr>
-			<td class="col-sm-1 col-md-1 col-lg-1 hidden-xs text-center"></td>
-			<td class="col-xs-10 col-sm-9 col-md-9 col-lg-9 title-table admission" ng-style="{ 'border-left-color' : table.color }">
-				<p>{{table.cnum}} {{table.title}}</p>
-				<span>{{table.teacher}}--{{table.type}}</span>
-				<label class="title-time">{{table.start_time}}-{{table.end_time}}</label>
+<div class="">
+	<table class="table">
+		<tr class="row" ng-repeat="table in tables">
+			<td class="col s10 m10 l10 table-title-box" ng-style="{ 'border-left-color' : table.color }">
+				<p class="table-title-title" ng-style="{'color':table.color}">{{table.cnum}} {{table.title | uppercase}}</p>
+				<span class="table-title-teacher"ng-show="{{table.teacher}}">{{table.teacher}}--{{table.type}}</span>
+				<label class="table-title-time right hide-on-small-only">{{table.start_time}}-{{table.end_time}}</label>
+				<div class="table-title-time hide-on-med-and-up">{{table.start_time}}-{{table.end_time}}</div>
 			</td>
-			<td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center table-bordered" style="vertical-align: middle;"><h5>{{table.room}}</h5></td>
+			<td class="col s2 m2 l2 table-room-box" style="text-align: center;"><h5>{{table.room}}</h5></td>
 		</tr>
 	</table>
+</div>
 </div>

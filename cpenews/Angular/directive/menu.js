@@ -1,4 +1,4 @@
-app.directive('menu', function() {
+app.directive('menu', function($timeout) {
     var contentUrl;
     return {
         restrict: 'E',
@@ -19,6 +19,11 @@ app.directive('menu', function() {
                 delete $localStorage.token;
                 location.href="index.html";
             }
+        },
+        link: function (scope) {
+           $timeout(function () {
+                $(".button-collapse").sideNav();
+            }, 100);
         }
     }
 });

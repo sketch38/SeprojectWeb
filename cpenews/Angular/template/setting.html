@@ -1,0 +1,126 @@
+<!--start second menu-->
+	<div class="row">
+	    <div class="col s12 z-depth-1 add">
+	 		<div class="col s6 push-s3">
+				<ul class="tabs second-menu">
+					<li class="tab col s3"><a href="#/setting">ADD COURSE</a></li>
+					<li class="tab col s3"><a href="#/setting">ADD EVENT</a></li>
+					<li class="tab col s3"><a class="active"href="#/setting">SHOW ALL</a></li>
+					<li class="tab col s3"><a href="#/setting">SETTING</a></li>
+				</ul>
+			</div>
+	    </div>
+	</div>
+<!--end second menu-->
+<div class="container add-box z-depth-1">
+	<div class="row">
+		<div class="type-add borderbottom">
+			<h4>SETTING</h4>
+		</div>
+		<div class="form-add">
+		    <ul class="collapsible z-depth-0" data-collapsible="expandable">
+			    <li>
+					<div class="collapsible-header active">
+						<a class="tooltipped" data-position="top" data-delay="50" data-tooltip="Set the date of semester for show your course in this term."><i class="material-icons">info</i></a>
+						Set Date for Semester
+					</div>
+					<div class="collapsible-body setting-fill">
+						<div class="row">
+							<form>
+								<div class="input-field col s5">
+									<label>Start Date:</label>
+									<input type="text" class="datepicker" ng-model="form.date.semesterstart">
+								</div>
+								<div class="input-field col s5">
+									<label>End Date:</label>
+									<input type="text" class="datepicker"  ng-model="form.date.semesterend">
+								</div>
+								<div class="col s2 setting-button">
+									<button class="btn waves-effect waves-light right" ng-click="adddate(2)" type="submit" name="action">
+										Change
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+			    </li>
+			    <li>
+			        <div class="collapsible-header">
+				        <a class="tooltipped" data-position="top" data-delay="50" data-tooltip="Set the date of midterm test for hide your course."><i class="material-icons">info</i></a>
+				        Set Date for Midterm test
+			        </div>
+			        <div class="collapsible-body setting-fill">
+			        	<div class="row">
+							<form>
+								<div class="input-field col s5">
+									<label>Start Date:</label>
+									<input type="text" class="datepicker" ng-model="form.date.midtermstart">
+								</div>
+								<div class="input-field col s5">
+									<label>End Date:</label>
+									<input type="text" class="datepicker" ng-model="form.date.midtermend">
+								</div>
+								<div class="col s2 setting-button">
+									<button class="btn waves-effect waves-light right" ng-click="adddate(0)" type="submit" name="action">
+										Change
+									</button>
+								</div>
+							</form>
+						</div>
+			        </div>
+			    </li>
+			    <li>
+			        <div class="collapsible-header">
+				        <a class="tooltipped" data-position="top" data-delay="50" data-tooltip="Set the date of final test for hide your course."><i class="material-icons">info</i></a>
+				        Set Date for Final test
+			        </div>
+			        <div class="collapsible-body setting-fill">
+			        	<div class="row">
+							<form>
+								<div class="input-field col s5">
+									<label>Start Date:</label>
+									<input type="text" class="datepicker" ng-model="form.date.finalstart">
+								</div>
+								<div class="input-field col s5">
+									<label>End Date:</label>
+									<input type="text" class="datepicker" ng-model="form.date.finalend">
+								</div>
+								<div class="col s2 setting-button">
+									<button class="btn waves-effect waves-light right" ng-click="adddate(1)" type="submit" name="action">
+										Change
+									</button>
+								</div>
+							</form>
+						</div>
+			        </div>
+			    </li>
+			    <li>
+			        <div class="collapsible-header">
+			        	<a class="tooltipped" data-position="top" data-delay="50" data-tooltip="manage your category for News"><i class="material-icons">info</i></a>
+			        	Category
+			        </div>
+			        <div class="collapsible-body setting-fill">
+			        	<div class="row">
+				        	<form>
+					          	<div class="input-field col s8">
+					            	<input id="input_text" type="text" ng-model="form.addcategory">
+					            	<label for="input_text">Add category</label>
+					          	</div>
+					         	<div class="col s2 setting-button">
+									<button class="btn waves-effect waves-light right" type="submit" name="action" ng-click="addcategorybutton()">Add</button>
+								</div>
+				          	</form>
+						</div>
+			        	<ul class="collection with-header" >
+					        <li class="collection-item" ng-repeat="category in categories">
+					        	<div>{{ category.ca_name }}
+					        		<a class="secondary-content" ng-click="deletecategorybutton(category.ca_id)"><i class="material-icons">delete</i></a>
+					        	</div>
+					        </li>
+  						</ul>
+			        </div>
+			    </li>
+			</ul>
+		</div>
+	</div>
+</div>

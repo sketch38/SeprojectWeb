@@ -3,20 +3,21 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>TODAY</title>
+		<script type="text/javascript" src="lib/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/angular.min.js"></script>
 		<script type="text/javascript" src="lib/angular-route.min.js"></script>
 		<script type="text/javascript" src="lib/ngStorage.min.js"></script>
-		<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="lib/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="lib/bootstrap.js"></script>
-		<script type="text/javascript" src="lib/offcanvas.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/reset.css">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/jasny-bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/time-table.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link rel="stylesheet" type="text/css" href="css/news.css">
-		<link rel="stylesheet" type="text/css" href="css/login.css">
+		<!--Import jQuery before materialize.js-->
+    	<script type="text/javascript" src="lib/Materialize/dist/js/materialize.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="lib\Materialize\dist\css\materialize.css"  media="screen,projection"/>
+		<link rel="stylesheet" type="text/css" href="css/menu.css">
+		<script type="text/javascript" src="js/test.js"></script>
+
 	</head>
 	<body ng-app="app">
 		<!--the tablet or web menu-->
@@ -26,15 +27,6 @@
     	<!--end menu-->
 		<div ng-view></div>
 
-    	<!--credit-->
-		<!-- <div class="footer">
-		    <div class="container-fluid">
-		        <p class="text-muted text-center">this website is use in education for software engineering course project.</p>
-				<p class="text-muted text-center">create by group of student in information systems and network engineering 3rd year</p>
-				<p class="text-muted text-center">chiang mai university</p>
-		    </div>
-	    </div> -->
-	    <!--end credit-->
     	<script src="angular/app.js"></script>
     	<script src="angular/directive/menu.js"></script>
     	<script src="angular/controllers/newsController.js"></script>
@@ -42,5 +34,6 @@
     	<script src="angular/directive/category-select.js"></script>
     	<script src="angular/controllers/shownewsController.js"></script>
     	<script src="angular/controllers/adminController.js"></script>
+    	<script src="angular/controllers/settingController.js"></script>
 	</body>
 </html>

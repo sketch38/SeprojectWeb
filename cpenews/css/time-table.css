@@ -1,6 +1,5 @@
 .head-table{
 	height: 2.5em;
-	color: #fff;
 	font-size: 12px;
 }
 .head-table tr td{
@@ -25,11 +24,18 @@
 .title-table span{
 	color: #424242;
 }
-
+.tableroom{
+	border-bottom: 5px solid #5fbeee;
+	color: #5fbeee; 
+}
+.timestamp-text{
+	font-size: 16px;
+	color: #5fbeee; 
+}
 
 @media (max-width: 767px){
 	.title-table p{
-		font-size:10px;
+		font-size:13px;
 		font-weight: bolder;
 	}
 	.title-table label{
@@ -39,15 +45,44 @@
 		padding-left: 5px;
 		padding-right: 5px;
 	}
+	.timetable-container{
+		padding-right: 10px;
+	  	padding-left: 10px;
+	  	margin-right: auto;
+	  	margin-left: auto;
+	}
 }
-@media (min-width: 768px){
+@media (min-width: 768px) and (max-width: 992px){
 	.title-table p{
-		font-size:13px;
+		font-size:14px;
 		font-weight: bolder;
 	}
 	.title-time{
 		float: right;
 		margin-right: 15px;
-		font-size: 11px;
+		font-size: 12px;
+	}
+	.timetable-container{
+		padding-right: 20px;
+	  	padding-left: 20px;
+	  	margin-right: auto;
+	  	margin-left: auto;
+	}
+}
+@media (min-width: 992px) {
+	.title-table p{
+		font-size:15px;
+		font-weight: bolder;
+	}
+  	.timetable-container{
+		padding-right: 40px;
+	  	padding-left: 40px;
+	  	margin-right: auto;
+	  	margin-left: auto;
+	}
+	.title-time{
+		float: right;
+		margin-right: 15px;
+		font-size: 14px;
 	}
 }

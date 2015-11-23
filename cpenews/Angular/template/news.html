@@ -1,6 +1,7 @@
 <categoryselect active-category="activeCategory"></categoryselect>
-<div class="container-fluid">
-	<a class="" ng-repeat="news in indexcontroller.news | filter:{ca_name:activeCategory}" ng-href="#/news/{{news.eid}}">
+
+<!-- <div class="container-fluid">
+	<a ng-repeat="news in indexcontroller.news | filter:{ca_name:activeCategory}" ng-href="#/news/{{news.eid}}">
 		<div class="col-md-4 col-sm-6" title='{{ news.title }}'>
 			<div class="col-md-10 col-sm-10 col-xs-12 block col-sm-offset-1 col-md-offset-1">
 				<div ng-show="{{news.haspic}}">
@@ -15,4 +16,41 @@
 			</div>
 		</div>
 	</a>
+</div> -->
+<div class="row" role="group" >
+	<div class="right"style="padding-bottom:5px;padding-top:5px;">
+		<a class="waves-effect waves-light light-green darken-1 btn"><i class="material-icons">view_module</i></a>
+		<a class="waves-effect waves-light light-green darken-1 btn"><i class="material-icons">view_list</i></a>
+	</div>
+</div>
+<div class="row news-container">
+	<div class="row">
+        <a ng-repeat="news in indexcontroller.news | filter:{ca_name:activeCategory}" ng-href="#/news/{{news.eid}}">
+        	<!-- <div class="col s12 m4" ng-show="news.pic">
+		        <div class="card small">
+		            <div class="card-image">
+		              	<img ng-src="{{news.pic}}">
+		              	<span class="card-title">{{ news.title }}</span>
+		            </div>
+		            <div class="card-content blue-gray-text">
+		              	<p>{{news.detail | limitTo: 130}}{{news.detail > 130 ? '' : '...Show more...'}}</p>
+		            </div>
+		            <div class="card-action blue-text">
+		            	<p class="right">{{news.time_post}}</p>
+		            </div>
+		        </div>
+        	</div> -->
+        	<div class="col s12 m4" ng-hide="news.pic">
+	          	<div class="card">
+		            <div class="card-content blue-grey-text">
+		              	<span class="card-title">{{ news.title }}</span>
+		              	<p>{{news.detail | limitTo: 130}}{{news.detail > 130 ? '' : '...Show more...'}}</p>
+		            </div>
+		            <div class="card-action blue-text">
+		            	<p>test</p>
+		            </div>
+		        </div>	
+        	</div>
+        </a> 
+    </div>
 </div>
