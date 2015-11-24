@@ -99,4 +99,31 @@ angular.module('app')
 				$location.path('/setting/showall');
 			});
 		};
+
+		//
+		//for show all
+		//
+		var getall = function() {
+			$http({method:'GET',url:'/getall'}).success(function(data){
+				$scope.all = data;
+			});
+		};
+		getall();
+		$scope.checkeventfilter = function() {
+		  	return function(event) {
+		  		return event.ca_id >0;
+		  	};
+		};
+		$scope.deletecoursebutton = function(id) {
+			$http({method:'DELETE',url:'/course/'+id}).success(function(data) {
+				alert("delete course done");
+				getall();
+			});
+		};
+		$scope.deleteeventbutton = function(id) {
+			$http({method:'DELETE',url:'/event/'+id}).success(function(data) {
+				alert("delete event done");
+				getall();
+			});
+		};
 });

@@ -1,0 +1,52 @@
+<div class="container add-box z-depth-1">
+	<div class="row">
+		<div class="type-add borderbottom">
+			<h4>ADD EVENT</h4>
+		</div>
+		<div class="form-add">
+		    <form class="col s12 ">
+			    <div class="row">
+			        <div class="input-field col s6">
+			          	<input type="text" class="validate" ng-model="form.addtitle">
+			          	<label>Title</label>
+			        </div>
+			        <div class="input-field col s3">
+			          	<input type="text" class="validate" ng-model="form.addcnum">
+			          	<label>Course Number</label>
+			        </div>
+			         <div class="input-field col s3">
+			          	<input type="text" class="validate" ng-model="form.addroom">
+			          	<label>Room</label>
+			        </div>							        
+			    </div>
+			    <div class="row">
+			        <div class="input-field col s6">
+			          	<input type="text" class="validate" ng-model="form.addstarttime">
+			          	<label>Start Time</label>
+			        </div>
+			        <div class="input-field col s6">
+			          	<input type="text" class="validate" ng-model="form.addendtime">
+			          	<label>End Time</label>
+			        </div>
+			    </div>
+			    <div class="row">
+			        <div class="input-field col s6">
+			          	<input type="text" class="validate" ng-model="form.addteacher">
+			          	<label>Teacher</label>
+			        </div>
+			        <div class="input-field col s6">
+			          	<input type="text" class="validate" ng-model="form.addtype">
+			          	<label>Course For</label>
+			        </div>
+			    </div>				    
+			    <div class="row">
+			        <div class="input-field col s12">
+			            <textarea id="textarea1" class="materialize-textarea" ng-model="form.adddetail"></textarea>
+			            <label for="textarea1">Detail</label>
+			        </div>
+		        </div>
+    			<button class="btn waves-effect waves-light right" ng-click="addcoursebutton()" type="submit" name="action">Add</button>
+		    </form>
+	    </div>
+	</div>
+</div>

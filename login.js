@@ -118,7 +118,20 @@ module.exports = function(app,pool) {
         });
     });
 
-    app.post('/addcourse',ensureAuthorized,function(request,response){
+    app.get('/course/:id', function (req, res) {
+      var cid = req.params.id;
+      pool.getConnection(function (errorCon , conn) {
+        conn.query('SELECT course.cid, course.cnum, course.title, course.detail, course.teacher, course.type, TIME_FORMAT(time.start_time, "%H:%i") AS start_time , TIME_FORMAT(time.end_time, "%H:%i") AS end_time FROM `course` INNER JOIN `time` ON course.cid = time.cid WHERE course.cid = ' + cid, function (errorQ, results) {
+          var data = results[0];
+          conn.query('SELECT day FROM courseday WHERE cid = ' + cid, function (errorQ, results) {
+            data.days = results;
+            res.json(data);
+          });
+        })
+      });
+    });
+
+    app.post('/course',ensureAuthorized,function(request,response){
         var form = request.body;
         pool.getConnection(function(errorCon,conn) {
             conn.query("INSERT INTO `course`(`cnum`, `title`, `detail`, `teacher`, `type`) VALUES ('" + form.cnum + "','"+ form.title +"','"+form.detail+"','"+form.teacher+"','"+form.type+"')", function(errorQ) {
@@ -130,28 +143,106 @@ module.exports = function(app,pool) {
                         if(errorQ){
                             response.json({data:"select error!!!!!!"});
                         }
-                        else{
+                        else {
                             conn.query("INSERT INTO `time`(`cid`,`start_time`, `end_time`,`room`) VALUES ('"+result[0].cid+"','"+form.starttime+"','"+form.endtime+"','"+form.room+"')", function(errorQ) {
                                 if(errorQ){
                                     response.json({data:"insert time error!!!!!!"});
                                 }
                                 else {
-                                  for(var i = 0; i < form.days.length; i++) {
-                                    conn.query("INSERT INTO `courseday`(`cid`, `day`) VALUES ('"+result[0].cid+"','"+ form.days[i] +"')", function(errorQ) {
-                                        // if(errorQ){
-                                        //     response.json({data:"insert day error!!!!!!"});
-                                        // }
-                                        // else{
-                                        //     response.json({
-                                        //         data:"success"
-                                        //     });
-                                        // }
-                                        if(i == form.days.length - 1) {
-                                          conn.release();
-                                        }
-                                    });
+                                  var queryString = "INSERT INTO `courseday`(`cid`, `day`) VALUES ";
+                                  for(var i  = 0 ; i < form.days.length; i++) {
+                                    queryString += (i != 0 ? ', ' : '');
+                                    queryString += "('" + result[0].cid + "', '" + form.days[i] + "')";
                                   }
+                                  conn.query(queryString, function(errorQ) {
+                                    if(errorQ){
+                                      response.json({data:"insert day error!!!!!!"});
+                                    }
+                                    else{
+                                      response.json({
+                                        data:"success"
+                                      });
+                                      conn.release();
+                                    }
+                                  });
                                 }
+                          });
+                       }
+                   });
+                }
+            });
+          });
+      });
+
+    app.get('/getall',ensureAuthorized,function(request,response){
+        pool.getConnection(function(errorCon,conn) {
+            conn.query('SELECT * FROM `course`', function(errorQ,courseList) {
+                if(errorQ){
+                    response.json({data:"error!!!!!!"});
+                }
+                else{
+                    conn.query('SELECT * FROM `event`', function(errorQ,eventList) {
+                        if(errorQ){
+                            response.json({data:"error!!!!!!"});
+                        }
+                        else{
+                            response.json(courseList.concat(eventList));
+                        }
+                        conn.release();
+                    });
+                }
+            });
+        });
+    });
+    app.delete('/course/:id',ensureAuthorized,function(request,response) {
+        var id = request.params.id;
+        pool.getConnection(function(errorCon,conn) {
+            conn.query('DELETE FROM `course` WHERE `cid`='+id, function(errorQ) {
+                if(errorQ){
+                    response.json({data:"error!!!!!!"});
+                }
+                else{
+                    conn.query('DELETE FROM `courseday` WHERE `cid`='+id, function(errorQ) {
+                        if(errorQ){
+                            response.json({data:"error!!!!!!"});
+                        }
+                        else{
+                            conn.query('DELETE FROM `time` WHERE `cid`='+id, function(errorQ) {
+                                if(errorQ){
+                                    response.json({data:"error!!!!!!"});
+                                }
+                                else{
+                                    response.json({data:"success!!!!"});
+                                }
+                                conn.release();
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    });
+    app.delete('/event/:id',ensureAuthorized,function(request,response) {
+        var id = request.params.id;
+        pool.getConnection(function(errorCon,conn) {
+            conn.query('DELETE FROM `event` WHERE `eid`='+id, function(errorQ) {
+                if(errorQ){
+                    response.json({data:"error!!!!!!"});
+                }
+                else{
+                    conn.query('DELETE FROM `time` WHERE `eid`='+id, function(errorQ) {
+                        if(errorQ){
+                            response.json({data:"error!!!!!!"});
+                        }
+                        else{
+                            conn.query('DELETE FROM `pic` WHERE `eid`='+id, function(errorQ) {
+                                if(errorQ){
+                                    response.json({data:"error!!!!!!"});
+                                }
+                                else{
+                                    response.json({data:"success!!!!"});
+                                }
+                                conn.release();
                             });
                         }
                     });

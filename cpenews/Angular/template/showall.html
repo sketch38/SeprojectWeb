@@ -7,13 +7,13 @@
 	</div> -->
 	<ul class="collapsible" data-collapsible="accordion">
 	    <li>
-	      	<div class="collapsible-header">Course</div>
+	      	<div class="collapsible-header active">Course</div>
 	      	<div class="collapsible-body setting-fill">
 	      		<ul class="collection with-header">
-			        <li class="collection-item">
-			        	<div>Alvin
-			        		<a href="#!" class="secondary-content"><i class="material-icons">delete</i></a>
-			        		<a href="#!" class="secondary-content"><i class="material-icons">mode_edit</i></a>
+			        <li class="collection-item" ng-repeat="course in all | filter: {ca_id: 0}">
+			        	<div>{{course.cnum}} {{course.title}}-{{course.teacher}} {{course.type}}
+			        		<a class="secondary-content" ng-click="deletecoursebutton(course.cid)"><i class="material-icons">delete</i></a>
+			        		<a class="secondary-content" ><i class="material-icons">mode_edit</i></a>
 			        	</div>
 			        </li>
 			    </ul>
@@ -23,10 +23,10 @@
 	      	<div class="collapsible-header">Event</div>
 	      	<div class="collapsible-body setting-fill">
 	      		<ul class="collection with-header">
-			        <li class="collection-item">
-			        	<div>Alvin
-			        		<a href="#!" class="secondary-content"><i class="material-icons">delete</i></a>
-			        		<a href="#!" class="secondary-content"><i class="material-icons">mode_edit</i></a>
+			        <li class="collection-item" ng-repeat="event in all | filter: checkeventfilter()">
+			        	<div>{{event.title}}
+			        		<a class="secondary-content" ng-click="deleteeventbutton(event.eid)"><i class="material-icons">delete</i></a>
+			        		<a class="secondary-content"><i class="material-icons">mode_edit</i></a>
 			        	</div>
 			        </li>
 			    </ul>
