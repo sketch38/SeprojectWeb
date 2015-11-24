@@ -1,5 +1,5 @@
 angular.module('app')
-	.controller('settingController',function($http,$scope,$timeout,$rootScope,$routeParams,$route){
+	.controller('settingController',function($http,$scope,$timeout,$rootScope,$routeParams,$route,$location){
 		$rootScope.menu = 'setting';
 		$rootScope.page = $routeParams.page;
 
@@ -84,22 +84,19 @@ angular.module('app')
 		//for add course
 		//
 		$scope.addcoursebutton = function() {
-
-			var course = {
-				cnum:$scope.form.addcnum,
-				title:$scope.form.addtitle,
-				detail:$scope.form.adddetail,
-				teacher:$scope.form.addteacher,
-				starttime:$scope.form.addstarttime,
-				endtime:$scope.form.addendtime,
-				room:$scope.form.addroom,
-				type:$scope.form.addtype,
-				day:$scope.form.addday
-			};
-			//console.log(course);
-			$http({method:'POST',data:course,url:'/addcourse'}).success(function(data) {
-				alert("Add course Done");
-				$location.path('/setting');
+			if(!$scope.form.addcourse) {
+				return false;
+			}
+			if($scope.form.addcourse.day) {
+				$scope.form.addcourse.days = [];
+				for(var key in $scope.form.addcourse.day) {
+					if(key) {
+						$scope.form.addcourse.days.push(key);
+					}
+				}
+			}
+			$http({method:'POST',data:$scope.form.addcourse ,url:'/addcourse'}).success(function(data) {
+				$location.path('/setting/showall');
 			});
 		};
 });

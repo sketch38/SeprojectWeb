@@ -119,46 +119,45 @@ module.exports = function(app,pool) {
     });
 
     app.post('/addcourse',ensureAuthorized,function(request,response){
-        console.log(request.body.day);
-        // for (var i = 0, len = daycourse.length; i < len; i++) {
-        //     someFn(arr[i]);
-        // }
-        // pool.getConnection(function(errorCon,conn) {
-        //     conn.query("INSERT INTO `course`(`cnum`, `title`, `detail`, `teacher`, `type`) VALUES ('"+request.body.cnum+"','"+request.body.title+"','"+request.body.detail+"','"+request.body.teacher+"','"+request.body.type+"')", function(errorQ) {
-        //         if(errorQ){
-        //             response.json({data:"insert course error!!!!!!"});
-        //         }
-        //         else{
-        //             conn.query("SELECT `cid` FROM `course` WHERE `cnum` ='"+request.body.cnum+"' and `type` = '"+request.body.type+"'", function(errorQ,result) {
-        //                 if(errorQ){
-        //                     response.json({data:"select error!!!!!!"});
-        //                 }
-        //                 else{
-        //                     conn.query("INSERT INTO `time`(`cid`,`start_time`, `end_time`,`room`) VALUES ('"+result.cid+"','"+request.body.starttime+"','"+request.body.endtime+"','"+request.body.room+"')", function(errorQ) {
-        //                         if(errorQ){
-        //                             response.json({data:"insert time error!!!!!!"});
-        //                         }
-        //                         else{
-
-        //                             conn.query("INSERT INTO `courseday`(`cid`, `day`) VALUES ('"+result.cid+"','"++"')", function(errorQ) {
-        //                                 if(errorQ){
-        //                                     response.json({data:"insert day error!!!!!!"});
-        //                                 }
-        //                                 else{
-        //                                     response.json({
-        //                                         data:"success"
-        //                                     });
-        //                                 }
-        //                                 conn.release();
-        //                             });
-        //                         }
-        //                     });
-        //                     //console.log("cid: "+result);
-        //                 }
-        //             });
-        //         }
-        //     });
-        // });
+        var form = request.body;
+        pool.getConnection(function(errorCon,conn) {
+            conn.query("INSERT INTO `course`(`cnum`, `title`, `detail`, `teacher`, `type`) VALUES ('" + form.cnum + "','"+ form.title +"','"+form.detail+"','"+form.teacher+"','"+form.type+"')", function(errorQ) {
+                if(errorQ){
+                    response.json({data:"insert course error!!!!!!"});
+                }
+                else{
+                    conn.query("SELECT `cid` FROM `course` ORDER BY cid DESC LIMIT 1", function(errorQ,result) {
+                        if(errorQ){
+                            response.json({data:"select error!!!!!!"});
+                        }
+                        else{
+                            conn.query("INSERT INTO `time`(`cid`,`start_time`, `end_time`,`room`) VALUES ('"+result[0].cid+"','"+form.starttime+"','"+form.endtime+"','"+form.room+"')", function(errorQ) {
+                                if(errorQ){
+                                    response.json({data:"insert time error!!!!!!"});
+                                }
+                                else {
+                                  for(var i = 0; i < form.days.length; i++) {
+                                    conn.query("INSERT INTO `courseday`(`cid`, `day`) VALUES ('"+result[0].cid+"','"+ form.days[i] +"')", function(errorQ) {
+                                        // if(errorQ){
+                                        //     response.json({data:"insert day error!!!!!!"});
+                                        // }
+                                        // else{
+                                        //     response.json({
+                                        //         data:"success"
+                                        //     });
+                                        // }
+                                        if(i == form.days.length - 1) {
+                                          conn.release();
+                                        }
+                                    });
+                                  }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
     });
 
     function ensureAuthorized(request, response, next) {
