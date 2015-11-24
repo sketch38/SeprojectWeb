@@ -26,7 +26,7 @@
 			        <li class="collection-item" ng-repeat="event in all | filter: checkeventfilter()">
 			        	<div>{{event.title}}
 			        		<a class="secondary-content" ng-click="deleteeventbutton(event.eid)"><i class="material-icons">delete</i></a>
-			        		<a class="secondary-content"><i class="material-icons">mode_edit</i></a>
+			        		<a class="secondary-content" ng-click="editeventbutton(event.eid)"><i class="material-icons">mode_edit</i></a>
 			        	</div>
 			        </li>
 			    </ul>

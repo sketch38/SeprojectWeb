@@ -30,6 +30,10 @@ app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProv
 			templateUrl:'angular/template/add-event.html',
 			controller: 'settingController'
 		})
+		.when('/setting/addevent/:eid',{
+			templateUrl:'angular/template/add-event.html',
+			controller: 'settingController'
+		})
 		.when('/setting/showall',{
 			templateUrl:'angular/template/showall.html',
 			controller: 'settingController'

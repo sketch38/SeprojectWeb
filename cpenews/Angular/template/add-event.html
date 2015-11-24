@@ -1,57 +1,55 @@
 <div class="container add-box z-depth-1">
 	<div class="row">
 		<div class="type-add borderbottom">
-			<h4>ADD EVENT</h4>
+			<h4>{{ edit ? "EDIT" : "ADD" }} EVENT</h4>
 		</div>
 		<div class="form-add">
 		    <form class="col s12 ">
 			    <div class="row">
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate" ng-model="form.addeventtitle">
+			          	<input type="text" class="validate" ng-model="form.addevent.title">
 			          	<label>Title</label>
-			        </div>			        						        
-			    </div>
-			    <div class="row">
-			        <div class="input-field col s6">
-			          	<input type="text" class="validate" ng-model="form.addeventstarttime">
-			          	<label>Start Time</label>
-			        </div>
-			        <div class="input-field col s6">
-			          	<input type="text" class="validate" ng-model="form.addeventendtime">
-			          	<label>End Time</label>
 			        </div>
 			    </div>
 			    <div class="row">
 			        <div class="input-field col s6">
-			          	<input type="text" class="datepicker" ng-model="form.addeventstartdate">
+			          	<input type="text" class="validate" ng-model="form.addevent.starttime" placeholder="09:00">
+			          	<label class="active">Start Time</label>
+			        </div>
+			        <div class="input-field col s6">
+			          	<input type="text" class="validate" ng-model="form.addevent.endtime" placeholder="15:00">
+			          	<label class="active">End Time</label>
+			        </div>
+			    </div>
+			    <div class="row">
+			        <div class="input-field col s6">
+			          	<input type="text" class="datepicker" ng-model="form.addevent.startdate">
 			          	<label>Start date</label>
 			        </div>
 			        <div class="input-field col s6">
-			          	<input type="text" class="datepicker"ng-model="form.addeventenddate">
+			          	<input type="text" class="datepicker"ng-model="form.addevent.enddate">
 			          	<label>End date</label>
 			        </div>
-			    </div>				    
+			    </div>
 			    <div class="row">
 			        <div class="input-field col s12">
-			            <textarea id="textarea1" class="materialize-textarea" ng-model="form.addeventdetail"></textarea>
+			            <textarea id="textarea1" class="materialize-textarea" ng-model="form.addevent.detail"></textarea>
 			            <label for="textarea1">Detail</label>
 			        </div>
 		        </div>
 		        <div class="row">
 		        	<div class="input-field col s3">
-			          	<input type="text" class="validate" ng-model="form.addeventroom">
+			          	<input type="text" class="validate" ng-model="form.addevent.room">
 			          	<label>Room</label>
 			        </div>
 			        <div class="input-field col s3">
-						<select class="browser-default">
+						<select class="browser-default" ng-model="form.addevent.category" ng-options="opt as opt.ca_name for opt in categories">
 							<option value="" disabled selected>Choose your Category</option>
-							<option value="1">Option 1</option>
-							<option value="2">Option 2</option>
-							<option value="3">Option 3</option>
 						</select>
 			        </div>
 		        </div>
-    			<button class="btn waves-effect waves-light right" ng-click="addcoursebutton()" type="submit" name="action">Add</button>
+					<button class="btn waves-effect waves-light right" ng-show="edit" ng-click="editaddeventbutton()" type="submit" name="action">Edit</button>
+    			<button class="btn waves-effect waves-light right" ng-hide="edit" ng-click="addeventbutton()" type="submit" name="action">Add</button>
 		    </form>
 	    </div>
 	</div>

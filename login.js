@@ -133,7 +133,6 @@ module.exports = function(app,pool) {
 
     app.put('/course', ensureAuthorized, function (req, res) {
       var form = req.body;
-      console.log(form);
       pool.getConnection(function(errorCon,conn) {
           conn.query("UPDATE `course` SET `cnum` = '" + form.cnum + "', `title` = '" + form.title + "', `detail` = '" + form.detail + "', `teacher` = '" + form.teacher + "', `type` = '" + form.type + "' WHERE cid = " + form.cid , function(errorQ) {
               if(errorQ){
@@ -212,6 +211,70 @@ module.exports = function(app,pool) {
             });
           });
       });
+
+      app.get('/event/:eid', ensureAuthorized, function (req, res) {
+        var eid = req.params.eid;
+        pool.getConnection(function (errorCon , conn) {
+          conn.query('SELECT event.eid, event.title, event.detail, event.ca_id, DATE_FORMAT(time.start_date,"%Y-%m-%d") AS start_date, DATE_FORMAT(time.end_date,"%Y-%m-%d") AS end_date, TIME_FORMAT(time.start_time, "%H:%i") AS start_time , TIME_FORMAT(time.end_time, "%H:%i") AS end_time, time.room FROM `event` INNER JOIN `time` ON event.eid = time.eid WHERE event.eid = ' + eid, function (errorQ, results) {
+            res.json(results[0]);
+          })
+        });
+      });
+
+      app.post('/event',ensureAuthorized,function(request,response){
+          var form = request.body;
+          pool.getConnection(function(errorCon,conn) {
+              conn.query("INSERT INTO `event`(`title`, `detail`, `ca_id`) VALUES ('" + form.title + "','" + form.detail + "','" + form.ca_id + "')", function(errorQ) {
+                  if(errorQ){
+                      response.json({data:"insert event error!!!!!!"});
+                  }
+                  else{
+                      conn.query("SELECT `eid` FROM `event` ORDER BY eid DESC LIMIT 1", function(errorQ,result) {
+                          if(errorQ){
+                              response.json({data:"select error!!!!!!"});
+                          }
+                          else {
+                              conn.query("INSERT INTO `time`(`eid`, `start_date`, `end_date`, `start_time`, `end_time`, `time_post`, `room`) VALUES ('" + result[0].eid + "','" + form.startdate + "','" + form.enddate + "','" + form.starttime + "','" + form.endtime + "', NOW(), '" + form.room + "')", function(errorQ) {
+                                  if(errorQ){
+                                      response.json({data:"insert time error!!!!!!"});
+                                  }
+                                  else {
+                                    response.json({
+                                      data:"success"
+                                    });
+                                    conn.release();
+                                  }
+                            });
+                         }
+                     });
+                  }
+              });
+            });
+        });
+
+        app.put('/event',ensureAuthorized,function(request,response){
+            var form = request.body;
+            pool.getConnection(function(errorCon,conn) {
+                conn.query("UPDATE `event` SET `title` = '" + form.title + "', `detail` = '" + form.detail + "', `ca_id` = '" + form.ca_id + "' WHERE eid = " + form.eid, function(errorQ) {
+                    if(errorQ){
+                        response.json({data:"update event error!!!!!!"});
+                    }
+                    else{
+                      conn.query("UPDATE `time` SET `start_date` = '" + form.startdate + "', `end_date` = '" + form.enddate + "', `start_time` = '" + form.starttime + "', `end_time` = '" + form.endtime + "', `room` = '" + form.room + "' WHERE eid = " + form.eid, function(errorQ) {
+                          if(errorQ){
+                              response.json({data:"update time error!!!!!!"});
+                          }
+                          else {
+                            response.json({
+                              data:"success"
+                            });
+                            conn.release();
+                          }
+                     });
+                    }
+                });
+              });
+          });
 
     app.get('/getall',ensureAuthorized,function(request,response){
         pool.getConnection(function(errorCon,conn) {

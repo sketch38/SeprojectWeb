@@ -125,3 +125,11 @@ body{
     padding-left: 2%;
     padding-right: 2%;
 }
+
+/*================================================home page==========================================================*/
+li.indicator-item {
+  background-color: #AAA!important;
+}
+li.indicator-item.active {
+  background-color:#5fbeee!important;
+}

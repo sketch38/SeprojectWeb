@@ -113,7 +113,7 @@ angular.module('app')
 				$('.input-field label').addClass("active");
 			});
 		}
-		$scope.editcoursebutton = function() {
+		$scope.editaddcoursebutton = function() {
 			if(!$scope.form.addcourse) {
 				return false;
 			}
@@ -126,10 +126,53 @@ angular.module('app')
 				}
 			}
 			$http({method:'PUT',data:$scope.form.addcourse ,url:'/course'}).success(function(data) {
-				console.log(data);
 				$location.path('/setting/showall');
 			});
 		};
+
+		//
+		//for add event
+		//
+		var nowPath = $location.path().split('/');
+		if(nowPath[2] === 'addevent') {
+			$http.get('/category').success(function (data) {
+				$scope.categories = data.splice(1, data.length);
+			});
+		}
+		$scope.addeventbutton = function() {
+			if(!$scope.form.addevent) {
+				return false;
+			}
+			$scope.form.addevent.ca_id = $scope.form.addevent.category.ca_id;
+			$http({method:'POST',data:$scope.form.addevent ,url:'/event'}).success(function(data) {
+				$location.path('/setting/showall');
+			});
+		};
+		$scope.editaddeventbutton = function () {
+			$scope.form.addevent.ca_id = $scope.form.addevent.category.ca_id;
+			$http({method:'PUT',data:$scope.form.addevent ,url:'/event'}).success(function(data) {
+				$location.path('/setting/showall');
+			});
+		};
+		if($routeParams.eid) {
+			$scope.edit = true;
+			$http.get('/event/' + $routeParams.eid).success(function (data) {
+				$scope.form.addevent = data;
+				$scope.form.addevent.startdate = $scope.form.addevent.start_date;
+				$scope.form.addevent.enddate = $scope.form.addevent.end_date;
+				$scope.form.addevent.starttime = $scope.form.addevent.start_time;
+				$scope.form.addevent.endtime = $scope.form.addevent.end_time;
+				$http.get('/category').success(function (data) {
+					$scope.categories = data.splice(1, data.length);
+					$scope.categories.forEach(function (category) {
+						if(category.ca_id == $scope.form.addevent.ca_id) {
+							$scope.form.addevent.category = category;
+						}
+					});
+				});
+				$('.input-field label').addClass("active");
+			});
+		}
 
 		//
 		//for show all
@@ -148,6 +191,10 @@ angular.module('app')
 
 		$scope.editcoursebutton = function (cid) {
 			$location.path('/setting/addcourse/' + cid);
+		};
+
+		$scope.editeventbutton = function (eid) {
+			$location.path('/setting/addevent/' + eid);
 		};
 
 		$scope.deletecoursebutton = function(id) {
