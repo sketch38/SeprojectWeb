@@ -27,7 +27,7 @@ app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProv
 			controller: 'settingController'
 		})
 		.when('/setting/addevent',{
-			templateUrl:'angular/template/setting.html',
+			templateUrl:'angular/template/add-event.html',
 			controller: 'settingController'
 		})
 		.when('/setting/showall',{

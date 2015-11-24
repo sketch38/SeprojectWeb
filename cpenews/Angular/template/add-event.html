@@ -7,42 +7,48 @@
 		    <form class="col s12 ">
 			    <div class="row">
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate" ng-model="form.addtitle">
+			          	<input type="text" class="validate" ng-model="form.addeventtitle">
 			          	<label>Title</label>
-			        </div>
-			        <div class="input-field col s3">
-			          	<input type="text" class="validate" ng-model="form.addcnum">
-			          	<label>Course Number</label>
-			        </div>
-			         <div class="input-field col s3">
-			          	<input type="text" class="validate" ng-model="form.addroom">
-			          	<label>Room</label>
-			        </div>							        
+			        </div>			        						        
 			    </div>
 			    <div class="row">
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate" ng-model="form.addstarttime">
+			          	<input type="text" class="validate" ng-model="form.addeventstarttime">
 			          	<label>Start Time</label>
 			        </div>
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate" ng-model="form.addendtime">
+			          	<input type="text" class="validate" ng-model="form.addeventendtime">
 			          	<label>End Time</label>
 			        </div>
 			    </div>
 			    <div class="row">
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate" ng-model="form.addteacher">
-			          	<label>Teacher</label>
+			          	<input type="text" class="datepicker" ng-model="form.addeventstartdate">
+			          	<label>Start date</label>
 			        </div>
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate" ng-model="form.addtype">
-			          	<label>Course For</label>
+			          	<input type="text" class="datepicker"ng-model="form.addeventenddate">
+			          	<label>End date</label>
 			        </div>
 			    </div>				    
 			    <div class="row">
 			        <div class="input-field col s12">
-			            <textarea id="textarea1" class="materialize-textarea" ng-model="form.adddetail"></textarea>
+			            <textarea id="textarea1" class="materialize-textarea" ng-model="form.addeventdetail"></textarea>
 			            <label for="textarea1">Detail</label>
+			        </div>
+		        </div>
+		        <div class="row">
+		        	<div class="input-field col s3">
+			          	<input type="text" class="validate" ng-model="form.addeventroom">
+			          	<label>Room</label>
+			        </div>
+			        <div class="input-field col s3">
+						<select class="browser-default">
+							<option value="" disabled selected>Choose your Category</option>
+							<option value="1">Option 1</option>
+							<option value="2">Option 2</option>
+							<option value="3">Option 3</option>
+						</select>
 			        </div>
 		        </div>
     			<button class="btn waves-effect waves-light right" ng-click="addcoursebutton()" type="submit" name="action">Add</button>
