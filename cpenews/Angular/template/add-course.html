@@ -7,49 +7,64 @@
 		    <form class="col s12 ">
 			    <div class="row">
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate">
+			          	<input type="text" class="validate" ng-model="form.addtitle">
 			          	<label>Course</label>
-			        </div>				        
+			        </div>
+			        <div class="input-field col s3">
+			          	<input type="text" class="validate" ng-model="form.addcnum">
+			          	<label>Course Number</label>
+			        </div>
+			         <div class="input-field col s3">
+			          	<input type="text" class="validate" ng-model="form.addroom">
+			          	<label>Room</label>
+			        </div>							        
 			    </div>
 			    <div class="row">
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate">
+			          	<input type="text" class="validate" ng-model="form.addstarttime">
 			          	<label>Start Time</label>
 			        </div>
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate">
+			          	<input type="text" class="validate" ng-model="form.addendtime">
 			          	<label>End Time</label>
 			        </div>
 			    </div>
 			    <div class="row">
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate">
+			          	<input type="text" class="validate" ng-model="form.addteacher">
 			          	<label>Teacher</label>
 			        </div>
 			        <div class="input-field col s6">
-			          	<input type="text" class="validate">
+			          	<input type="text" class="validate" ng-model="form.addtype">
 			          	<label>Course For</label>
 			        </div>
 			    </div>				    
 			    <div class="row">
 			        <div class="input-field col s12">
-			            <textarea id="textarea1" class="materialize-textarea"></textarea>
+			            <textarea id="textarea1" class="materialize-textarea" ng-model="form.adddetail"></textarea>
 			            <label for="textarea1">Detail</label>
 			        </div>
 		        </div>
-			    <div class="input-field">
-			    	<select multiple>
-						<option value="" disabled selected>Choose course DAYS</option>
-						<option value="1">Monday</option>
-						<option value="2">Tuesday</option>
-						<option value="3">Wednesday</option>
-						<option value="4">Thursday</option>
-						<option value="5">Friday</option>
-						<option value="6">Saturday</option>
-						<option value="3">Sunday</option>
-			    	</select>
-			    	<label>Select day for Course</label>
-				</div>
+
+		        <div>
+		        	
+				      	<input type="checkbox" id="sun" ng-model="form.addday[0].day" ng-true-value="'sun'" ng-false-value=""/>
+				      	<label for="sun">Sun</label>
+				      	<input type="checkbox" id="mon" ng-model="form.addday[1].day" ng-true-value="'mon'" ng-false-value=""/>
+				      	<label for="mon">Mon</label>
+				      	<input type="checkbox" id="tue" ng-model="form.addday[2].day" ng-true-value="'tue'" ng-false-value=""/>
+				      	<label for="tue">Tue</label>
+				      	<input type="checkbox" id="wed" ng-model="form.addday[3].day" ng-true-value="'wed'" ng-false-value=""/>
+				      	<label for="wed">Wed</label>
+				      	<input type="checkbox" id="thu" ng-model="form.addday[4].day" ng-true-value="'thu'" ng-false-value=""/>
+				      	<label for="thu">Thu</label>
+				      	<input type="checkbox" id="fri" ng-model="form.addday[5].day" ng-true-value="'fri'" ng-false-value=""/>
+				      	<label for="fri">Fri</label>
+				      	<input type="checkbox" id="sat" ng-model="form.addday[6].day" ng-true-value="'sat'" ng-false-value=""/>
+				      	<label for="sat">Sat</label>
+				      	{{form.addday}}
+    			</div>
+    			<button class="btn waves-effect waves-light right" ng-click="addcoursebutton()" type="submit" name="action">Add</button>
 		    </form>
 	    </div>
 	</div>

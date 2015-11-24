@@ -18,11 +18,23 @@ app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProv
 			templateUrl:'angular/template/admin.html',
 			controller: 'adminController'
 		})
-		.when('/setting/:page',{
+		.when('/setting/addcourse',{
+			templateUrl:'angular/template/add-course.html',
+			controller: 'settingController'
+		})
+		.when('/setting/addevent',{
 			templateUrl:'angular/template/setting.html',
 			controller: 'settingController'
 		})
-		.when('/news/:eid',{
+		.when('/setting/showall',{
+			templateUrl:'angular/template/showall.html',
+			controller: 'settingController'
+		})
+		.when('/setting/setting',{
+			templateUrl:'angular/template/setting.html',
+			controller: 'settingController'
+		})
+		.when('/news/detail/:eid',{
 			templateUrl:'angular/template/news/show.html'
 		})
 		.when('/contact',{

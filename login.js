@@ -42,7 +42,7 @@ module.exports = function(app,pool) {
     });
 
     app.post('/category',ensureAuthorized,function(request,response) {
-        console.log(request.body.name);
+        //console.log(request.body.name);
         pool.getConnection(function(errorCon,conn) {
             //console.log('INSERT INTO `category`(`ca_name`) VALUES ("'+request.body.name+'")');
             conn.query('INSERT INTO `category`(`ca_name`) VALUES ("'+request.body.name+'")', function(errorQ) {
@@ -116,6 +116,49 @@ module.exports = function(app,pool) {
                 conn.release();
             });
         });
+    });
+
+    app.post('/addcourse',ensureAuthorized,function(request,response){
+        console.log(request.body.day);
+        // for (var i = 0, len = daycourse.length; i < len; i++) {
+        //     someFn(arr[i]);
+        // }
+        // pool.getConnection(function(errorCon,conn) {
+        //     conn.query("INSERT INTO `course`(`cnum`, `title`, `detail`, `teacher`, `type`) VALUES ('"+request.body.cnum+"','"+request.body.title+"','"+request.body.detail+"','"+request.body.teacher+"','"+request.body.type+"')", function(errorQ) {
+        //         if(errorQ){
+        //             response.json({data:"insert course error!!!!!!"});
+        //         }
+        //         else{
+        //             conn.query("SELECT `cid` FROM `course` WHERE `cnum` ='"+request.body.cnum+"' and `type` = '"+request.body.type+"'", function(errorQ,result) {
+        //                 if(errorQ){
+        //                     response.json({data:"select error!!!!!!"});
+        //                 }
+        //                 else{
+        //                     conn.query("INSERT INTO `time`(`cid`,`start_time`, `end_time`,`room`) VALUES ('"+result.cid+"','"+request.body.starttime+"','"+request.body.endtime+"','"+request.body.room+"')", function(errorQ) {
+        //                         if(errorQ){
+        //                             response.json({data:"insert time error!!!!!!"});
+        //                         }
+        //                         else{
+
+        //                             conn.query("INSERT INTO `courseday`(`cid`, `day`) VALUES ('"+result.cid+"','"++"')", function(errorQ) {
+        //                                 if(errorQ){
+        //                                     response.json({data:"insert day error!!!!!!"});
+        //                                 }
+        //                                 else{
+        //                                     response.json({
+        //                                         data:"success"
+        //                                     });
+        //                                 }
+        //                                 conn.release();
+        //                             });
+        //                         }
+        //                     });
+        //                     //console.log("cid: "+result);
+        //                 }
+        //             });
+        //         }
+        //     });
+        // });
     });
 
     function ensureAuthorized(request, response, next) {

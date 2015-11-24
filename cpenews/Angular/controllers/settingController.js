@@ -1,7 +1,11 @@
 angular.module('app')
-	.controller('settingController',function($http,$scope,$timeout,$rootScope){
+	.controller('settingController',function($http,$scope,$timeout,$rootScope,$routeParams,$route){
 		$rootScope.menu = 'setting';
 		$rootScope.page = $routeParams.page;
+
+		//
+		//for setting page
+		//
 		changeDate = function(date) { // dd/mm/yyyy
 	      	var newDate = date.split('/');
 	      	return newDate[2] + '-' + newDate[1] + '-' + newDate[0];
@@ -38,14 +42,15 @@ angular.module('app')
 			  	});
 			  	$scope.form = {
 			  		date:{
-			  			semesterstart:"'"+data[2].startdate+"'",
-			  			semesterend:"'"+data[2].enddate+"'",
-			  			midtermstart:"'"+data[0].startdate+"'",
-			  			midtermend:"'"+data[0].enddate+"'",
-			  			finalstart:"'"+data[1].enddate+"'",
-			  			finalend:"'"+data[1].enddate+"'",
+			  			semesterstart:data[2].startdate,
+			  			semesterend:data[2].enddate,
+			  			midtermstart:data[0].startdate,
+			  			midtermend:data[0].enddate,
+			  			finalstart:data[1].enddate,
+			  			finalend:data[1].enddate
 			  		}
-			  	}
+			  	};
+			  	$('.input-field label[for=date]').addClass("active");
 			});
 		};
 		getDateSetting();
@@ -71,6 +76,30 @@ angular.module('app')
 			$http({method:'PUT',data:date,url:'/datesetting/'+id}).success(function(data) {
 				getCategory();
 				alert("Done");
+			});
+		};
+
+
+		//
+		//for add course
+		//
+		$scope.addcoursebutton = function() {
+
+			var course = {
+				cnum:$scope.form.addcnum,
+				title:$scope.form.addtitle,
+				detail:$scope.form.adddetail,
+				teacher:$scope.form.addteacher,
+				starttime:$scope.form.addstarttime,
+				endtime:$scope.form.addendtime,
+				room:$scope.form.addroom,
+				type:$scope.form.addtype,
+				day:$scope.form.addday
+			};
+			//console.log(course);
+			$http({method:'POST',data:course,url:'/addcourse'}).success(function(data) {
+				alert("Add course Done");
+				$location.path('/setting');
 			});
 		};
 });

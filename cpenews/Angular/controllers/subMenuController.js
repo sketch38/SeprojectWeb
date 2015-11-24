@@ -26,9 +26,11 @@ angular.module('app')
         ];
         $http.get('/category').success(function (data) {
           data.forEach(function (category) {
-            categoryName = category.ca_name.toUpperCase();
-            categoryNamePath = categoryName.toLowerCase().replace(/\s+/g, '');
-            $scope.menuLists.push({ name : categoryName, link : '#/news/' + categoryNamePath, pathName : categoryNamePath });
+            if(category.ca_name != 'course') {
+              categoryName = category.ca_name.toUpperCase();
+              categoryNamePath = categoryName.toLowerCase().replace(/\s+/g, '');
+              $scope.menuLists.push({ name : categoryName, link : '#/news/' + categoryNamePath, pathName : categoryNamePath });
+            }
           });
         });
         // str.replace(/\s+/g, ''); remove space
