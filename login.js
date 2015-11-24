@@ -118,10 +118,10 @@ module.exports = function(app,pool) {
         });
     });
 
-    app.get('/course/:id', function (req, res) {
+    app.get('/course/:id', ensureAuthorized, function (req, res) {
       var cid = req.params.id;
       pool.getConnection(function (errorCon , conn) {
-        conn.query('SELECT course.cid, course.cnum, course.title, course.detail, course.teacher, course.type, TIME_FORMAT(time.start_time, "%H:%i") AS start_time , TIME_FORMAT(time.end_time, "%H:%i") AS end_time FROM `course` INNER JOIN `time` ON course.cid = time.cid WHERE course.cid = ' + cid, function (errorQ, results) {
+        conn.query('SELECT course.cid, course.cnum, course.title, course.detail, course.teacher, course.type, TIME_FORMAT(time.start_time, "%H:%i") AS start_time , TIME_FORMAT(time.end_time, "%H:%i") AS end_time, time.room FROM `course` INNER JOIN `time` ON course.cid = time.cid WHERE course.cid = ' + cid, function (errorQ, results) {
           var data = results[0];
           conn.query('SELECT day FROM courseday WHERE cid = ' + cid, function (errorQ, results) {
             data.days = results;
@@ -129,6 +129,45 @@ module.exports = function(app,pool) {
           });
         })
       });
+    });
+
+    app.put('/course', ensureAuthorized, function (req, res) {
+      var form = req.body;
+      console.log(form);
+      pool.getConnection(function(errorCon,conn) {
+          conn.query("UPDATE `course` SET `cnum` = '" + form.cnum + "', `title` = '" + form.title + "', `detail` = '" + form.detail + "', `teacher` = '" + form.teacher + "', `type` = '" + form.type + "' WHERE cid = " + form.cid , function(errorQ) {
+              if(errorQ){
+                  response.json({data:"update course error!!!!!!"});
+              }
+              else {
+                conn.query("UPDATE `time` SET `start_time` = '" + form.starttime + "', `end_time` = '" + form.endtime + "',`room` = '" + form.room + "' WHERE cid = " + form.cid, function(errorQ) {
+                  if(errorQ){
+                    response.json({data:"update time error!!!!!!"});
+                  }
+                  else {
+                    conn.query("DELETE FROM `courseday` WHERE cid = " + form.cid, function (errorQ) {
+                      var queryString = "INSERT INTO `courseday`(`cid`, `day`) VALUES ";
+                      for(var i  = 0 ; i < form.days.length; i++) {
+                        queryString += (i != 0 ? ', ' : '');
+                        queryString += "('" + form.cid + "', '" + form.days[i] + "')";
+                      }
+                      conn.query(queryString, function(errorQ) {
+                        if(errorQ){
+                          res.json({data:"insert day error!!!!!!"});
+                        }
+                        else {
+                          res.json({
+                            data:"success"
+                          });
+                          conn.release();
+                        }
+                      });
+                    });
+                  }
+                });
+              }
+          });
+        });
     });
 
     app.post('/course',ensureAuthorized,function(request,response){

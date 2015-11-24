@@ -22,6 +22,10 @@ app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProv
 			templateUrl:'angular/template/add-course.html',
 			controller: 'settingController'
 		})
+		.when('/setting/addcourse/:cid',{
+			templateUrl:'angular/template/add-course.html',
+			controller: 'settingController'
+		})
 		.when('/setting/addevent',{
 			templateUrl:'angular/template/setting.html',
 			controller: 'settingController'

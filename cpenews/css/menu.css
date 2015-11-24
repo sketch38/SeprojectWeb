@@ -16,7 +16,7 @@ body{
 }
 .searchber-mobile{
 	color: #E0E0E0;
-	width:100%; 
+	width:100%;
 	margin-left:40px;
 }
 
@@ -66,7 +66,7 @@ body{
     color: #9e9e9e;
 }
 .form-add{
-    padding: 1% 5% 1% 5%; 
+    padding: 1% 5% 1% 5%;
 }
 /*=================================================setting page==========================================================*/
 .setting-fill{
@@ -76,6 +76,9 @@ body{
 .setting-button{
     margin-top: 3%;
     margin-bottom: auto;
+}
+.secondary-content {
+  cursor: pointer;
 }
 /*================================================contact page==========================================================*/
 /*=================================================time table===========================================================*/
@@ -89,7 +92,7 @@ body{
 }
 .table-head-room{
     border-bottom: 5px solid #5fbeee;
-    color: #5fbeee; 
+    color: #5fbeee;
 }
 .table{
   border-collapse: separate; /* Or do nothing, this is default */

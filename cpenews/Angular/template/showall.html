@@ -13,7 +13,7 @@
 			        <li class="collection-item" ng-repeat="course in all | filter: {ca_id: 0}">
 			        	<div>{{course.cnum}} {{course.title}}-{{course.teacher}} {{course.type}}
 			        		<a class="secondary-content" ng-click="deletecoursebutton(course.cid)"><i class="material-icons">delete</i></a>
-			        		<a class="secondary-content" ><i class="material-icons">mode_edit</i></a>
+			        		<a class="secondary-content" ng-click="editcoursebutton(course.cid)" ><i class="material-icons">mode_edit</i></a>
 			        	</div>
 			        </li>
 			    </ul>

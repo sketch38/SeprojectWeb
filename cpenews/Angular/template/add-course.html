@@ -1,7 +1,7 @@
 <div class="container add-box z-depth-1">
 	<div class="row">
 		<div class="type-add borderbottom">
-			<h4>ADD COURSE</h4>
+			<h4>{{ edit ? "EDIT" : "ADD" }} COURSE</h4>
 		</div>
 		<div class="form-add">
 		    <form class="col s12 ">
@@ -68,7 +68,8 @@
 				      	<input type="checkbox" id="sat" value="sat" ng-model="form.addcourse.day.sat">
 				      	<label for="sat">Sat</label>
     			</div>
-    			<button class="btn waves-effect waves-light right" ng-click="addcoursebutton()" type="submit" name="action">Add</button>
+					<button class="btn waves-effect waves-light right" ng-show="edit" ng-click="editcoursebutton()" type="submit" name="action">Edit</button>
+    			<button class="btn waves-effect waves-light right" ng-hide="edit" ng-click="addcoursebutton()" type="submit" name="action">Add</button>
 		    </form>
 	    </div>
 	</div>

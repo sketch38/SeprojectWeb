@@ -95,7 +95,38 @@ angular.module('app')
 					}
 				}
 			}
-			$http({method:'POST',data:$scope.form.addcourse ,url:'/addcourse'}).success(function(data) {
+			$http({method:'POST',data:$scope.form.addcourse ,url:'/course'}).success(function(data) {
+				$location.path('/setting/showall');
+			});
+		};
+		if($routeParams.cid) {
+			$scope.edit = true;
+			$http.get('/course/' + $routeParams.cid).success(function (data) {
+				$scope.form.addcourse = data;
+				$scope.form.addcourse.starttime = $scope.form.addcourse.start_time;
+				$scope.form.addcourse.endtime = $scope.form.addcourse.end_time;
+				var days = [];
+				for(var key in $scope.form.addcourse.days) {
+					days[$scope.form.addcourse.days[key].day] = true;
+				}
+				$scope.form.addcourse.day = days;
+				$('.input-field label').addClass("active");
+			});
+		}
+		$scope.editcoursebutton = function() {
+			if(!$scope.form.addcourse) {
+				return false;
+			}
+			if($scope.form.addcourse.day) {
+				$scope.form.addcourse.days = [];
+				for(var key in $scope.form.addcourse.day) {
+					if(key) {
+						$scope.form.addcourse.days.push(key);
+					}
+				}
+			}
+			$http({method:'PUT',data:$scope.form.addcourse ,url:'/course'}).success(function(data) {
+				console.log(data);
 				$location.path('/setting/showall');
 			});
 		};
@@ -114,6 +145,11 @@ angular.module('app')
 		  		return event.ca_id >0;
 		  	};
 		};
+
+		$scope.editcoursebutton = function (cid) {
+			$location.path('/setting/addcourse/' + cid);
+		};
+
 		$scope.deletecoursebutton = function(id) {
 			$http({method:'DELETE',url:'/course/'+id}).success(function(data) {
 				alert("delete course done");
