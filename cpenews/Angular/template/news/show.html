@@ -1,12 +1,16 @@
-<div ng-controller="shownewsController as news" class="col-md-10 col-md-offset-1 border show">
-		<img ng-src="{{news.newstitle.pic}}"/>
-		<div class="showfont">
-			<h1>{{news.newstitle.title}}</h1>
-			<div class="showDetail"><p>{{news.newstitle.detail}}</p></div>
-			<p>START-DATE:{{news.newstitle.start_date}}</p>
-			<p>END-DATE:{{news.newstitle.end_date}}</p>
-			<p>START-TIME:{{news.newstitle.start_time}}</p>
-			<p>END-TIME:{{news.newstitle.end_time}}</p>
-			<p>CATEGORY: {{news.newstitle.ca_name | uppercase}}</p>
+<div ng-controller="shownewsController as news" class="container add-box z-depth-1">
+	<img ng-src="{{news.newstitle.pic}}"/>
+	<div class="show-text">
+		<h3 class="show-title">{{news.newstitle.title}}</h3>
+		<div class="show-detail"><p>{{news.newstitle.detail}}</p></div>
+		<div class="show-subdetail">
+			<span>ROOM:</span>{{news.newstitle.room}}</br>
+			<span>TIME:</span>{{news.newstitle.start_time}}-{{news.newstitle.end_time}}</br>
+			<span>START-DATE:</span>{{news.newstitle.start_date}}</br>
+			<span>END-DATE:</span>{{news.newstitle.end_date}}</br>
 		</div>
+		<div class="show-subdetail">
+			<span>CATEGORY:</span>{{news.newstitle.ca_name | uppercase}}
+		</div>
+	</div>	
 </div>

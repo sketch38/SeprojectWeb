@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2015 at 06:08 PM
+-- Generation Time: Nov 26, 2015 at 12:03 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `ca_name` varchar(30) CHARACTER SET utf8 NOT NULL,
   `color` varchar(10) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`ca_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `category`
@@ -41,7 +41,8 @@ INSERT INTO `category` (`ca_id`, `ca_name`, `color`) VALUES
 (0, 'course', '#4683ea'),
 (1, 'admission', '#f0c20e'),
 (2, 'competition', '#3dbb55'),
-(3, 'training', '#db3239');
+(3, 'training', '#db3239'),
+(4, 'test', '');
 
 -- --------------------------------------------------------
 
@@ -58,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   `type` varchar(100) CHARACTER SET utf8 NOT NULL,
   `ca_id` int(30) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `course`
@@ -70,7 +71,9 @@ INSERT INTO `course` (`cid`, `cnum`, `title`, `detail`, `teacher`, `type`, `ca_i
 (3, '269200', 'web programming', 'introduction of web programming.', 'ken cosh', 'isne#2', 0),
 (4, '261305', 'operationsystems', 'introduction of operation systems.', 'Narissara Elamkanitchat', 'isne#3', 0),
 (5, '261361', 'software engineering', 'Se fundamentals including development process and life cycle,requirements analysis,design,construction and testing, operation and maintenance,quality and professional ethics.', 'lachana Ramingwong', 'isne#3', 0),
-(6, '269340', 'data centric app dev', 'next from database ', 'Juggapong Natwichai', 'isne#3', 0);
+(6, '269340', 'data centric app dev', 'next from database ', 'Juggapong Natwichai', 'isne#3', 0),
+(7, '205502', 'test', 'undefined', 'test', 'isne#2', 0),
+(8, '111111', 'test refresh', 'test', 'test', 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -99,7 +102,12 @@ INSERT INTO `courseday` (`cid`, `day`) VALUES
 (5, 'mon'),
 (5, 'thu'),
 (6, 'mon'),
-(6, 'thu');
+(6, 'thu'),
+(7, 'mon'),
+(7, 'thu'),
+(7, 'fri'),
+(7, 'wed'),
+(8, 'wed');
 
 -- --------------------------------------------------------
 
@@ -113,19 +121,17 @@ CREATE TABLE IF NOT EXISTS `event` (
   `detail` longtext NOT NULL,
   `ca_id` int(30) DEFAULT NULL,
   PRIMARY KEY (`eid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `event`
 --
 
 INSERT INTO `event` (`eid`, `title`, `detail`, `ca_id`) VALUES
-(1, 'การสอบ ISNE PROFICIENCY TEST', 'การสอบวัดความสามารถทางด้านคอมพิวเตอร์ประจำปี 2558 โดยผู้ที่มีผลการสอบอยู่ในระดับดีถึงดีเยี่ยมสามารถนำมายื่นเข้าโครงการพิเศษเพื่อศึกษาต่อในสาขาวิศวสารสนเทศและเครือข่ายได้', 1),
 (2, 'การลงทะเบียนนักศึกษาใหม่ประจำปีการศึกษา 2558', '', 1),
 (3, 'ประกาศผลการแข่งขัน icode ประจำปี 2558', '', 2),
-(4, 'Web Design Concept & Mobile Design', '', 3),
-(5, 'present project se ', '', 3),
-(6, 'test-table', '', 3);
+(4, 'test', 'test', 3),
+(5, 'test event refresh', 'test', 3);
 
 -- --------------------------------------------------------
 
@@ -139,6 +145,29 @@ CREATE TABLE IF NOT EXISTS `pic` (
   `pic` blob NOT NULL,
   PRIMARY KEY (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slide`
+--
+
+CREATE TABLE IF NOT EXISTS `slide` (
+  `s_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_link` text NOT NULL,
+  `s_text` text NOT NULL,
+  PRIMARY KEY (`s_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `slide`
+--
+
+INSERT INTO `slide` (`s_id`, `s_link`, `s_text`) VALUES
+(1, 'pic/marshmallow-1600.jpg', 'Trick and Trips in Marshmallow '),
+(2, 'pic/IMG_7901.jpg', 'Welcome to Department of computer Engineering.'),
+(3, 'pic/IMG_5979.jpg', 'Invitation to listen present project of 4th years computer engineering student.'),
+(4, 'pic/testpic.jpg', 'Present Project Se for 3rd years information systems and network engineering student');
 
 -- --------------------------------------------------------
 
@@ -161,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `termtime` (
 INSERT INTO `termtime` (`term_id`, `order`, `startdate`, `enddate`) VALUES
 (0, 'midterm', '0000-00-00', '0000-00-00'),
 (1, 'final', '0000-00-00', '0000-00-00'),
-(2, 'semester', '2015-10-26', '2015-10-27');
+(2, 'semester', '2015-11-22', '2015-11-28');
 
 -- --------------------------------------------------------
 
@@ -181,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `time` (
   `room` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`tid`),
   UNIQUE KEY `cid` (`cid`,`eid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `time`
@@ -194,12 +223,12 @@ INSERT INTO `time` (`tid`, `cid`, `eid`, `start_date`, `end_date`, `start_time`,
 (4, 4, 0, '0000-00-00', '0000-00-00', '08:00:00.000000', '09:30:00.000000', NULL, '501'),
 (5, 5, 0, '0000-00-00', '0000-00-00', '09:30:00.000000', '11:00:00.000000', NULL, '502'),
 (6, 6, 0, '0000-00-00', '0000-00-00', '11:00:00.000000', '12:30:00.000000', NULL, '518'),
-(7, 0, 1, '2015-10-26', '2015-10-26', '09:00:00.000000', '15:00:00.000000', '2015-10-25 06:07:34.000000', '521'),
-(8, 0, 2, '2015-10-26', '2015-10-26', '09:00:00.000000', '15:00:00.000000', '2015-10-25 14:09:26.000000', '521'),
-(9, 0, 3, '2015-10-26', '2015-10-26', '08:00:00.000000', '17:00:00.000000', '2015-10-25 18:25:10.000000', '518'),
-(10, 0, 4, '2015-10-26', '2015-10-26', '09:00:00.000000', '16:30:00.000000', '2015-10-25 18:36:25.000000', '516'),
-(11, 0, 5, '2015-10-26', '2015-10-26', '09:30:00.000000', '10:20:00.000000', '2015-10-26 02:49:34.000000', '502'),
-(12, 0, 6, '2015-10-26', '2015-10-26', '10:10:00.000000', '10:30:00.000000', '2015-10-26 03:03:54.000000', '502');
+(8, 0, 2, '2015-11-25', '2015-11-25', '09:00:00.000000', '17:00:00.000000', '2015-10-25 14:09:26.000000', '521'),
+(9, 0, 3, '2015-11-20', '2015-11-20', '08:00:00.000000', '17:00:00.000000', '2015-10-25 18:25:10.000000', '518'),
+(10, 0, 4, '2015-11-25', '2015-11-25', '09:30:00.000000', '17:30:00.000000', '2015-10-25 18:36:25.000000', '516'),
+(11, 7, 0, '0000-00-00', '0000-00-00', '14:30:00.000000', '17:00:00.000000', NULL, '521'),
+(12, 8, 0, '0000-00-00', '0000-00-00', '16:11:00.000000', '16:15:00.000000', NULL, '111'),
+(13, 0, 5, '2015-11-25', '2015-11-25', '16:10:00.000000', '16:15:00.000000', '2015-11-25 09:10:54.000000', '111');
 
 -- --------------------------------------------------------
 

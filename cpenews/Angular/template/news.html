@@ -1,5 +1,5 @@
 <div class="row" role="group" >
-	<div class="right"style="padding-bottom:5px;padding-top:5px;">
+	<div class="right"style="padding-top:10px;">
 		<a class="waves-effect waves-light light-green darken-1 btn" ng-class="{active: layout == 'grid'}"ng-click="changeLayoutGrid()"><i class="material-icons">view_module</i></a>
 		<a class="waves-effect waves-light light-green darken-1 btn" ng-class="{active: layout == 'list'}" ng-click="changeLayoutList()"><i class="material-icons">view_list</i></a>
 	</div>
@@ -11,10 +11,10 @@
 		        <div class="card small">
 		            <div class="card-image">
 		              	<img ng-src="{{news.pic}}">
-		              	<span class="card-title">{{ news.title }}</span>
+		              	<span class="card-title news-title-grid">{{ news.title }}</span>
 		            </div>
 		            <div class="card-content blue-gray-text">
-		              	<p>{{news.detail | limitTo: 130}}{{news.detail > 130 ? '' : '...Show more...'}}</p>
+		              	<p class="news-detail">{{news.detail | limitTo: 130}}{{news.detail > 130 ? '' : '...Show more...'}}</p>
 		            </div>
 		            <div class="card-action blue-text">
 		            	<p class="right">{{news.time_post}}</p>
@@ -24,11 +24,11 @@
         	<div class="col s12 m4" ng-hide="news.pic">
 	          	<div class="card" style="height:300px;">
 		            <div class="card-content blue-grey-text" style="height:264px;">
-		              	<span class="card-title">{{ news.title }}{{indexcontroller.canametopath(news.ca_name)}}</span>
-		              	<p>{{news.detail | limitTo: 130}}{{news.detail > 130 ? '' : '...Show more...'}}</p>
+		              	<span class="news-title-grid card-title">{{ news.title }}{{indexcontroller.canametopath(news.ca_name)}}</span>
+		              	<p class="news-detail">{{news.detail | limitTo: 130}}{{news.detail > 130 ? '' : '...Show more...'}}</p>
 		            </div>
 		            <div class="card-action blue-text">
-		            	<p>test</p>
+		            	<p>{{news.time_post}}</p>
 		            </div>
 		        </div>	
         	</div>
@@ -39,8 +39,8 @@
 	<div class="row">
 		<div class="collection">
 		    <a ng-repeat="news in indexcontroller.news | filter: indexcontroller.canamepath(indexcontroller.category)" ng-href="#/news/detail/{{news.eid}}" class="collection-item">
-		    	<p>{{news.title}}</p>
-		    	<p>{{news.time_post}}</p>
+		    	<p class="news-title-list">{{news.title}}</p>
+		    	<p class="news-timepost">{{news.time_post}}</p>
 		    </a>
 	  	</div>	
 	</div>

@@ -69,8 +69,24 @@ app.get('/news',function(request,response){
 app.get('/news/:eid',function(request,response){
 	var id = request.params.eid;
   pool.getConnection(function(errorCon,conn) {
-    conn.query("SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name,TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.start_date,T.end_date FROM event E,category Ca,time T WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id AND E.eid ="+id, function(errorQ, results) {
+    conn.query("SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name,T.room,TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,DATE_FORMAT(T.start_date,'%Y-%m-%d') start_date,DATE_FORMAT(T.end_date,'%Y-%m-%d') end_date FROM event E,category Ca,time T WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id AND E.eid ="+id, function(errorQ, results) {
+      if(errorQ){
+        console.log(errorQ);
+      }
       response.json(results);
+      conn.release();
+    });
+  });
+});
+
+
+app.get('/home',function(request,response){
+  pool.getConnection(function(errorCon,conn) {
+    conn.query("SELECT * FROM `slide`", function(errorQ, results) {
+      response.json(results);
+      if(errorQ){
+        response.json(errorQ);
+      }
       conn.release();
     });
   });

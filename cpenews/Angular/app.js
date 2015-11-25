@@ -5,6 +5,10 @@ app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProv
 			templateUrl:'angular/template/home.html',
 			controller: 'homeController'
 		})
+		.when('/contact',{
+			templateUrl:'angular/template/contact.html',
+			controller: 'contactController'
+		})
 		.when('/time-table/:page',{
 			templateUrl:'angular/template/time-table.html',
 			controller: 'timetableController'
@@ -44,9 +48,6 @@ app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProv
 		})
 		.when('/news/detail/:eid',{
 			templateUrl:'angular/template/news/show.html'
-		})
-		.when('/contact',{
-			templateUrl:'angular/template/news/contact.html'
 		})
 		.otherwise({
 			redirectTo:'/'
