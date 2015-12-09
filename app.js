@@ -32,8 +32,8 @@ app.get('/time-table',function(request,response){
   var today = new Date();
   var currentDate = today.getTime();
   var formDate = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
-  //var currentTime = today.getHours() + ':' + today.getMinutes();
-  var currentTime = '08:00'; // this is mockup
+  var currentTime = today.getHours() + ':' + today.getMinutes();
+  //var currentTime = '08:00'; // this is mockup
   pool.getConnection(function(errorCon,conn) {
     conn.query("SELECT * FROM termtime", function(errorQ, termList) {
       conn.query("SELECT E.eid,E.title,Ca.ca_name,Ca.color,TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,T.room,DATE_FORMAT(T.start_date,'%d-%m-%Y') start_date,DATE_FORMAT(T.end_date,'%d-%m-%Y') end_date FROM time T,event E,category Ca WHERE E.eid = T.eid and Ca.ca_id = E.ca_id and T.start_date ='"+ formDate +"' and T.end_time > '" + currentTime + "'" , function(errorQ2, eventList) {
