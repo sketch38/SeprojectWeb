@@ -10,6 +10,10 @@
 			          	<input type="text" class="validate" ng-model="form.addevent.title">
 			          	<label>Title</label>
 			        </div>
+			        <div class="input-field col s6">
+			          	<input type="text" class="validate" ng-model="form.addevent.pic">
+			          	<label>Picture Cover(link)</label>
+			        </div>
 			    </div>
 			    <div class="row">
 			        <div class="input-field col s6">
@@ -32,12 +36,6 @@
 			        </div>
 			    </div>
 			    <div class="row">
-			        <div class="input-field col s12">
-			            <textarea id="textarea1" class="materialize-textarea" ng-model="form.addevent.detail"></textarea>
-			            <label for="textarea1">Detail</label>
-			        </div>
-		        </div>
-		        <div class="row">
 		        	<div class="input-field col s3">
 			          	<input type="text" class="validate" ng-model="form.addevent.room">
 			          	<label>Room</label>
@@ -46,6 +44,17 @@
 						<select class="browser-default" ng-model="form.addevent.category" ng-options="opt as opt.ca_name for opt in categories">
 							<option value="" disabled selected>Choose your Category</option>
 						</select>
+			        </div>
+		        </div>
+			    <div class="row">
+			        <div class="input-field col s12" style="margin-bottom:20px;">
+			           <!--  <textarea id="textarea1" class="materialize-textarea" ng-model="form.addevent.detail"></textarea> -->
+						<label for="textarea1">Detail</label>
+			        </div>
+		        </div>
+		        <div class="row">
+			        <div class="input-field col s12" style="margin-bottom:20px;">
+			            <textarea style="height:300px;" ui-tinymce="tinymceOptions" ng-model="form.addevent.detail"></textarea>
 			        </div>
 		        </div>
 					<button class="btn waves-effect waves-light right" ng-show="edit" ng-click="editaddeventbutton()" type="submit" name="action">Edit</button>

@@ -1,8 +1,8 @@
-<div ng-controller="shownewsController as news" class="container add-box z-depth-1">
-	<img ng-src="{{news.newstitle.pic}}"/>
+<div ng-controller="shownewsController as news" class="container add-box z-depth-1" style="margin-top:1px;">
+	<div ng-show="news.newstitle.pic"><img style="width:100%;" ng-src="{{news.newstitle.pic}}"/></div>
 	<div class="show-text">
 		<h3 class="show-title">{{news.newstitle.title}}</h3>
-		<div class="show-detail"><p>{{news.newstitle.detail}}</p></div>
+		<div class="show-detail"><p ng-bind-html="news.newstitle.detail | to_trusted"></p></div>
 		<div class="show-subdetail">
 			<span>ROOM:</span>{{news.newstitle.room}}</br>
 			<span>TIME:</span>{{news.newstitle.start_time}}-{{news.newstitle.end_time}}</br>

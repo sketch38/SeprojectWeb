@@ -126,18 +126,25 @@ body{
     padding-right: 2%;
 }
 .news-title-grid{
-    line-height: 30px!important;
+    line-height: 27px!important;
 }
 .news-title-list{
     color: #777;
     font-size: 18px;
 }
+.news-title-haspic{
+    padding-top: 40px;
+    color: #777;
+}
 .news-detail{
-    line-height: 35px !important;
+    line-height: 25px !important;
 }
 .news-timepost{
     padding-top: 5px;
     font-size: 14px;
+}
+.card-haspic{
+    padding-top:10px !important; 
 }
 /*================================================home page==========================================================*/
 li.indicator-item {
@@ -169,6 +176,7 @@ li.indicator-item.active {
 }
 .show-detail{
     font-size: 16px;
+    line-height: 25px;
     padding: 4% 2% 2% 4% ;
 }
 /*============================================admin page========================================================*/

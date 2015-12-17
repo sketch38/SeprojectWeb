@@ -34,7 +34,6 @@ angular.module('app')
 		var getDateSetting = function() {
 			$http({method:'GET',url:'/datesetting'}).success(function(data){
 				$scope.datesetting = data;
-				//console.log(data[0].startdate);
 				$('.datepicker').pickadate({
 			    	selectMonths: true, // Creates a dropdown to control month
 			   		selectYears: 15, // Creates a dropdown of 15 years to control year
@@ -50,6 +49,7 @@ angular.module('app')
 			  			finalend:data[1].enddate
 			  		}
 			  	};
+			  	//console.log($scope.form.date.semesterstart);
 			  	$('.input-field label[for=date]').addClass("active");
 			});
 		};
@@ -74,10 +74,63 @@ angular.module('app')
 				};
 			}
 			$http({method:'PUT',data:date,url:'/datesetting/'+id}).success(function(data) {
-				getCategory();
+				getDateSetting();
 				alert("Done");
 			});
 		};
+		var getSlide = function() {
+			$http({method:'GET',url:'/home'}).success(function(data){
+				$scope.slide = data;
+			  	$scope.form = {
+			  		slide:{
+			  			slidelink1:data[0].s_link,
+			  			slidetext1:data[0].s_text,
+			  			slidelink2:data[1].s_link,
+			  			slidetext2:data[1].s_text,
+			  			slidelink3:data[2].s_link,
+			  			slidetext3:data[2].s_text,
+			  			slidelink4:data[3].s_link,
+			  			slidetext4:data[3].s_text,
+			  		}
+			  	};
+			  	$('.input-field label[for=slide]').addClass("active");
+			});
+		};
+		getSlide();
+		$scope.addslide = function(id) {
+			if(id==1){
+				var slide = {
+					s_link:$scope.form.slide.slidelink1,
+					s_text:$scope.form.slide.slidetext1
+				};
+			}
+			else if(id==2){
+				var slide = {
+					s_link:$scope.form.slide.slidelink2,
+					s_text:$scope.form.slide.slidetext2
+				};
+			}
+			else if(id==3){
+				var slide = {
+					s_link:$scope.form.slide.slidelink3,
+					s_text:$scope.form.slide.slidetext3
+				};
+			}
+			else if(id==4){
+				var slide = {
+					s_link:$scope.form.slide.slidelink4,
+					s_text:$scope.form.slide.slidetext4
+				};
+			}
+			else{
+				return false;
+			}
+			$http({method:'PUT',data:slide,url:'/home/'+id}).success(function(data) {
+				getSlide();
+				alert("Done");
+			});
+		};
+
 
 
 		//
@@ -85,6 +138,10 @@ angular.module('app')
 		//
 		$scope.addcoursebutton = function() {
 			if(!$scope.form.addcourse) {
+				return false;
+			}
+			if(!$scope.form.addcourse.title){
+				$scope.form.validate.course.title = "please input course's name."; 
 				return false;
 			}
 			if($scope.form.addcourse.day) {
@@ -144,6 +201,7 @@ angular.module('app')
 				return false;
 			}
 			$scope.form.addevent.ca_id = $scope.form.addevent.category.ca_id;
+			console.log($scope.form.addevent.detail);
 			$http({method:'POST',data:$scope.form.addevent ,url:'/event'}).success(function(data) {
 				$location.path('/setting/showall');
 			});
@@ -173,6 +231,20 @@ angular.module('app')
 				$('.input-field label').addClass("active");
 			});
 		}
+		//test for tinymce
+		$scope.tinymceOptions = {
+		    onChange: function(e) {
+		    	// put logic here for keypress and cut/paste changes
+		    },
+		    inline: false,
+		    plugins : 'advlist autolink link image lists charmap print preview',
+		    skin: 'lightgray',
+		    theme : 'modern',
+		    entity_encoding : "raw",
+		    font_formats: 'Arial=arial,helvetica,sans-serif;'
+		};
+		//
+
 
 		//
 		//for show all

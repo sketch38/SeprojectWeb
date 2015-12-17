@@ -59,7 +59,7 @@ app.get('/time-table',function(request,response){
 
 app.get('/news',function(request,response){
 	pool.getConnection(function(errorCon,conn) {
-    conn.query("SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name FROM event E,category Ca,time T WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id ORDER BY T.time_post DESC", function(errorQ, results) {
+    conn.query("SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name,P.pic FROM event E,category Ca,time T,pic P WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id AND P.eid = E.eid ORDER BY T.time_post DESC", function(errorQ, results) {
       response.json(results);
       conn.release();
     });
@@ -69,7 +69,7 @@ app.get('/news',function(request,response){
 app.get('/news/:eid',function(request,response){
 	var id = request.params.eid;
   pool.getConnection(function(errorCon,conn) {
-    conn.query("SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name,T.room,TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,DATE_FORMAT(T.start_date,'%Y-%m-%d') start_date,DATE_FORMAT(T.end_date,'%Y-%m-%d') end_date FROM event E,category Ca,time T WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id AND E.eid ="+id, function(errorQ, results) {
+    conn.query("SELECT E.eid,E.title,E.detail,T.time_post,Ca.ca_name,T.room,TIME_FORMAT(T.start_time, '%H:%i') start_time,TIME_FORMAT(T.end_time, '%H:%i') end_time,DATE_FORMAT(T.start_date,'%Y-%m-%d') start_date,DATE_FORMAT(T.end_date,'%Y-%m-%d') end_date,P.pid,P.pic FROM event E,category Ca,time T,pic P WHERE E.eid = T.eid AND Ca.ca_id = E.ca_id AND P.eid = E.eid AND E.eid ="+id, function(errorQ, results) {
       if(errorQ){
         console.log(errorQ);
       }
@@ -86,6 +86,7 @@ app.get('/home',function(request,response){
       response.json(results);
       if(errorQ){
         response.json(errorQ);
+        console.log(errorQ);
       }
       conn.release();
     });

@@ -6,6 +6,13 @@ angular.module('app')
 		var controller = this;
 		$http({method:'GET',url:'/news'}).success(function(data){
 			controller.news = data;
+			console.log(controller.news[0].pic);
+			// if(controller.news.pic == "undefined"){
+			// 	controller.news.haspic = false;
+			// }
+			// else{
+			// 	controller.news.haspic = true;
+			// }
 		});
 		this.category = $routeParams.page;
 

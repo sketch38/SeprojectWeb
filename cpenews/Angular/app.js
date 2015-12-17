@@ -1,4 +1,4 @@
-var app = angular.module('app',['ngStorage','ngRoute']);
+var app = angular.module('app',['ngStorage','ngRoute','ui.tinymce']);
 app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProvider){
 	$routeProvider
 		.when('/',{
@@ -84,3 +84,16 @@ app.controller('MenuController',['$location', '$localStorage',function($location
 		location.href="index.html";
 	}
 }]);
+
+app.filter('to_trusted', ['$sce', function($sce){
+	return function(text) {
+	    return $sce.trustAsHtml(text);
+	};
+}]);
+
+app.filter('htmlToPlaintext', function() {
+    return function(text) {
+      return angular.element(text).text();
+    }
+  }
+);

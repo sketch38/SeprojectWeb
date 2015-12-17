@@ -41,6 +41,28 @@ module.exports = function(app,pool) {
         });
     });
 
+    
+    app.put('/home/:id',ensureAuthorized,function(request,response){
+      var id = request.params.id;
+      pool.getConnection(function(errorCon,conn) {
+        conn.query("UPDATE `slide` SET `s_link`='"+request.body.s_link+"',`s_text`='"+request.body.s_text+"' WHERE `s_id`="+id, function(errorQ, results) {
+          if(errorQ){
+              response.json({
+                  data:"error!!!!!!"
+              });
+              console.log(errorQ);
+          }
+          else{
+              response.json({
+                  data:"success"
+              });
+              console.log("success");
+          }
+          conn.release();
+        });
+      });
+    });
+
     app.post('/category',ensureAuthorized,function(request,response) {
         //console.log(request.body.name);
         pool.getConnection(function(errorCon,conn) {
@@ -81,13 +103,14 @@ module.exports = function(app,pool) {
         });
     });
 
-    app.get('/datesetting',ensureAuthorized,function(request,response){
+    app.get('/datesetting',function(request,response){
         pool.getConnection(function(errorCon,conn) {
             conn.query('SELECT term_id,DATE_FORMAT(startdate,"%Y-%m-%d") startdate,DATE_FORMAT(enddate,"%Y-%m-%d") enddate FROM `termtime`', function(errorQ,result) {
                 if(errorQ){
                     response.json({
                         data:"error!!!!!!"
                     });
+                    console.log(errorQ);
                 }
                 else{
                     response.json(result);
@@ -222,27 +245,41 @@ module.exports = function(app,pool) {
       });
 
       app.post('/event',ensureAuthorized,function(request,response){
+          console.log("startputdata");
           var form = request.body;
+          if(form.pic == undefined){
+            form.pic="";
+          }
           pool.getConnection(function(errorCon,conn) {
-              conn.query("INSERT INTO `event`(`title`, `detail`, `ca_id`) VALUES ('" + form.title + "','" + form.detail + "','" + form.ca_id + "')", function(errorQ) {
+              conn.query('INSERT INTO `event`(`title`, `detail`, `ca_id`) VALUES ("' + form.title + '","' + form.detail + '","' + form.ca_id + '")', function(errorQ) {
                   if(errorQ){
                       response.json({data:"insert event error!!!!!!"});
+                      console.log(errorQ);
                   }
                   else{
                       conn.query("SELECT `eid` FROM `event` ORDER BY eid DESC LIMIT 1", function(errorQ,result) {
                           if(errorQ){
                               response.json({data:"select error!!!!!!"});
+                              console.log(errorQ);
                           }
                           else {
                               conn.query("INSERT INTO `time`(`eid`, `start_date`, `end_date`, `start_time`, `end_time`, `time_post`, `room`) VALUES ('" + result[0].eid + "','" + form.startdate + "','" + form.enddate + "','" + form.starttime + "','" + form.endtime + "', NOW(), '" + form.room + "')", function(errorQ) {
                                   if(errorQ){
                                       response.json({data:"insert time error!!!!!!"});
+                                      console.log(errorQ);
                                   }
                                   else {
-                                    response.json({
-                                      data:"success"
-                                    });
-                                    conn.release();
+                                      conn.query("INSERT INTO `pic`(`eid`, `pic`) VALUES ('" + result[0].eid + "','" + form.pic + "')", function(errorQ) {
+                                            if(errorQ){
+                                                response.json({data:"insert pic error!!!!!!"});
+                                                console.log(errorQ);
+                                            }
+                                            else {
+                                              console.log("success");
+                                              response.json({data:"success"});
+                                              conn.release();
+                                            }
+                                      });
                                   }
                             });
                          }
