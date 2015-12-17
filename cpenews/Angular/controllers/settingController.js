@@ -93,6 +93,7 @@ angular.module('app')
 			  			slidetext4:data[3].s_text,
 			  		}
 			  	};
+			  	console.log($scope.form.s);
 			  	$('.input-field label[for=slide]').addClass("active");
 			});
 		};
@@ -201,13 +202,14 @@ angular.module('app')
 				return false;
 			}
 			$scope.form.addevent.ca_id = $scope.form.addevent.category.ca_id;
-			console.log($scope.form.addevent.detail);
+			console.log($scope.form.addevent.pic);
 			$http({method:'POST',data:$scope.form.addevent ,url:'/event'}).success(function(data) {
 				$location.path('/setting/showall');
 			});
 		};
 		$scope.editaddeventbutton = function () {
 			$scope.form.addevent.ca_id = $scope.form.addevent.category.ca_id;
+			console.log($scope.form.addevent.pic);
 			$http({method:'PUT',data:$scope.form.addevent ,url:'/event'}).success(function(data) {
 				$location.path('/setting/showall');
 			});

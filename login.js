@@ -302,10 +302,17 @@ module.exports = function(app,pool) {
                               response.json({data:"update time error!!!!!!"});
                           }
                           else {
-                            response.json({
-                              data:"success"
+                            conn.query('UPDATE `pic` SET `pic`="'+form.pic+'" WHERE `eid`='+form.eid, function(errorQ) {
+                                if(errorQ){
+                                    response.json({data:"insert pic error!!!!!!"});
+                                    console.log(errorQ);
+                                }
+                                else {
+                                  console.log("success");
+                                  response.json({data:"success"});
+                                  conn.release();
+                                }
                             });
-                            conn.release();
                           }
                      });
                     }
