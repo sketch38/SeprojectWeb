@@ -238,7 +238,7 @@ module.exports = function(app,pool) {
       app.get('/event/:eid', ensureAuthorized, function (req, res) {
         var eid = req.params.eid;
         pool.getConnection(function (errorCon , conn) {
-          conn.query('SELECT event.eid, event.title, event.detail, event.ca_id, DATE_FORMAT(time.start_date,"%Y-%m-%d") AS start_date, DATE_FORMAT(time.end_date,"%Y-%m-%d") AS end_date, TIME_FORMAT(time.start_time, "%H:%i") AS start_time , TIME_FORMAT(time.end_time, "%H:%i") AS end_time, time.room FROM `event` INNER JOIN `time` ON event.eid = time.eid WHERE event.eid = ' + eid, function (errorQ, results) {
+          conn.query('SELECT E.eid, E.title, E.detail, E.ca_id, DATE_FORMAT(T.start_date,"%Y-%m-%d") AS start_date,DATE_FORMAT(T.end_date,"%Y-%m-%d") AS end_date, TIME_FORMAT(T.start_time, "%H:%i") AS start_time , TIME_FORMAT(T.end_time, "%H:%i") AS end_time, T.room,P.pic FROM `event` E,`time` T,`pic` P WHERE T.eid = E.eid AND P.eid = E.eid AND E.eid ='+eid, function (errorQ, results) {
             res.json(results[0]);
           })
         });
