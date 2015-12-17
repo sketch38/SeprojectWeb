@@ -81,7 +81,7 @@ angular.module('app')
 		var getSlide = function() {
 			$http({method:'GET',url:'/home'}).success(function(data){
 				$scope.slide = data;
-			  	$scope.form = {
+			  	$scope.form.s = {
 			  		slide:{
 			  			slidelink1:data[0].s_link,
 			  			slidetext1:data[0].s_text,
@@ -100,26 +100,26 @@ angular.module('app')
 		$scope.addslide = function(id) {
 			if(id==1){
 				var slide = {
-					s_link:$scope.form.slide.slidelink1,
-					s_text:$scope.form.slide.slidetext1
+					s_link:$scope.form.s.slide.slidelink1,
+					s_text:$scope.form.s.slide.slidetext1
 				};
 			}
 			else if(id==2){
 				var slide = {
-					s_link:$scope.form.slide.slidelink2,
-					s_text:$scope.form.slide.slidetext2
+					s_link:$scope.form.s.slide.slidelink2,
+					s_text:$scope.form.s.slide.slidetext2
 				};
 			}
 			else if(id==3){
 				var slide = {
-					s_link:$scope.form.slide.slidelink3,
-					s_text:$scope.form.slide.slidetext3
+					s_link:$scope.form.s.slide.slidelink3,
+					s_text:$scope.form.s.slide.slidetext3
 				};
 			}
 			else if(id==4){
 				var slide = {
-					s_link:$scope.form.slide.slidelink4,
-					s_text:$scope.form.slide.slidetext4
+					s_link:$scope.form.s.slide.slidelink4,
+					s_text:$scope.form.s.slide.slidetext4
 				};
 			}
 			else{
