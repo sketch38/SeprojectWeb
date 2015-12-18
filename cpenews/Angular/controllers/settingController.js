@@ -1,5 +1,5 @@
 angular.module('app')
-	.controller('settingController',function($http,$scope,$timeout,$rootScope,$routeParams,$route,$location){
+	.controller('settingController',function($http,$scope,$timeout,$rootScope,$routeParams,$route,$location,$base64){
 		$rootScope.menu = 'setting';
 		$rootScope.page = $routeParams.page;
 
@@ -142,7 +142,7 @@ angular.module('app')
 				return false;
 			}
 			if(!$scope.form.addcourse.title){
-				$scope.form.validate.course.title = "please input course's name."; 
+				$scope.form.validate.course.title = "please input course's name.";
 				return false;
 			}
 			if($scope.form.addcourse.day) {
@@ -203,13 +203,17 @@ angular.module('app')
 			}
 			$scope.form.addevent.ca_id = $scope.form.addevent.category.ca_id;
 			console.log($scope.form.addevent.pic);
+			$scope.form.addevent.detail = $base64.encode(unescape(encodeURIComponent($scope.form.addevent.detail)));
 			$http({method:'POST',data:$scope.form.addevent ,url:'/event'}).success(function(data) {
 				$location.path('/setting/showall');
 			});
 		};
 		$scope.editaddeventbutton = function () {
+			console.log($scope.form.addevent);
 			$scope.form.addevent.ca_id = $scope.form.addevent.category.ca_id;
+			$scope.form.addevent.detail = $base64.encode(unescape(encodeURIComponent($scope.form.addevent.detail)));
 			console.log($scope.form.addevent.pic);
+			console.log($scope.form.addevent);
 			$http({method:'PUT',data:$scope.form.addevent ,url:'/event'}).success(function(data) {
 				$location.path('/setting/showall');
 			});
@@ -222,6 +226,12 @@ angular.module('app')
 				$scope.form.addevent.enddate = $scope.form.addevent.end_date;
 				$scope.form.addevent.starttime = $scope.form.addevent.start_time;
 				$scope.form.addevent.endtime = $scope.form.addevent.end_time;
+				try {
+					$scope.form.addevent.detail = decodeURIComponent(escape($base64.decode($scope.form.addevent.detail)));
+				}
+				catch(e) {
+
+				}
 				$http.get('/category').success(function (data) {
 					$scope.categories = data.splice(1, data.length);
 					$scope.categories.forEach(function (category) {

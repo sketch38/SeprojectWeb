@@ -1,5 +1,5 @@
 angular.module('app')
-	.controller('newsController',function($rootScope, $routeParams, $http,$scope){
+	.controller('newsController',function($rootScope, $routeParams, $http,$scope , $base64){
 		$rootScope.menu = 'news';
 		$rootScope.page = $routeParams.page;
 		//$scope.layout = 'grid';
@@ -24,6 +24,11 @@ angular.module('app')
 		    	return news.ca_name.toLowerCase().replace(/\s+/g, '') === path;
 		  	};
 		};
+
+		this.base64decode = function (data) {
+			decodeURIComponent(escape($base64.decode(data)));
+		};
+
 		if(!$rootScope.layout){
 			$rootScope.layout = 'grid';
 		}

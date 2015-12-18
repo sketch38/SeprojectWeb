@@ -41,7 +41,7 @@ module.exports = function(app,pool) {
         });
     });
 
-    
+
     app.put('/home/:id',ensureAuthorized,function(request,response){
       var id = request.params.id;
       pool.getConnection(function(errorCon,conn) {

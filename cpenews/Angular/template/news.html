@@ -20,19 +20,19 @@
 		            </div>
 		        </div>
         	</div>
-        	
+
         	<div class="col s12 m4" ng-hide="news.pic">
 	          	<div class="card" style="height:300px;">
 		            <div class="card-content blue-grey-text" style="height:264px;">
 		              	<span class="news-title-grid card-title">{{ news.title }}{{indexcontroller.canametopath(news.ca_name)}}</span>
-		              	<p class="news-detail" >{{news.detail | htmlToPlaintext | limitTo: 200}}</p>
+		              	<p class="news-detail" >{{ indexcontroller.base64decode(news.detail) | htmlToPlaintext | limitTo: 200}}</p>
 		            </div>
 		            <div class="card-action blue-text">
 		            	<p>{{news.time_post}}</p>
 		            </div>
-		        </div>	
+		        </div>
         	</div>
-        </a> 
+        </a>
     </div>
 </div>
 <div class="news-container" ng-show="layout == 'list'">
@@ -42,6 +42,6 @@
 		    	<p class="news-title-list">{{news.title}}</p>
 		    	<p class="news-timepost">{{news.time_post}}</p>
 		    </a>
-	  	</div>	
+	  	</div>
 	</div>
 </div>

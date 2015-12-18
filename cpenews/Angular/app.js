@@ -1,4 +1,4 @@
-var app = angular.module('app',['ngStorage','ngRoute','ui.tinymce']);
+var app = angular.module('app',['ngStorage','ngRoute','ui.tinymce','base64']);
 app.config(['$routeProvider','$httpProvider' ,function ($routeProvider,$httpProvider){
 	$routeProvider
 		.when('/',{
